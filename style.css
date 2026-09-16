@@ -1,0 +1,112 @@
+body {
+    background-image: url(Pic/darkbg.jpg);
+}
+
+* {
+    box-sizing: border-box; /* Egyszerűbbé teszi a méretezést margóval és paddinggal együtt */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #203c54;
+}
+
+.container {
+    width: 90%; /* Relatív szélesség */
+    max-width: 1300px; /* Maximális szélesség nagy képernyőkön */
+    margin: auto; /* Középre igazítás */
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footer {
+    background-color: #f7f7f7;
+    padding: 15px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.date {
+    background-color: #f7f7f7;
+    padding: 15px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.main-content {
+    display: flex; /* Flexbox elrendezés bekapcsolása */
+    flex-wrap: wrap; /* Engedélyezi az elemeknek a következő sorba tördelést, ha szükséges */
+    gap: 20px; /* Helyköz a "sidebar" és a "content" között */
+}
+
+.sidebar {
+    flex: 1; /* Rugalmas növekedés */
+    background-color: #f7f7f7;
+    padding: 15px;
+    min-width: 200px; /* Minimális szélesség, hogy ne legyen túl kicsi */
+}
+
+.content {
+    flex: 1; /* Háromszor akkora helyet foglal el, mint a sidebar */
+    background-color: #f7f7f7;
+    padding: 15px;
+}
+
+/* Média lekérdezés: ha a képernyő szélessége 768px vagy kisebb */
+@media screen and (max-width: 768px) {
+    .main-content {
+        flex-direction: column; /* Az elemeket oszlopba rendezi mobil nézetben */
+    }
+
+    .sidebar, .content {
+        flex: auto; /* Automatikus méretezés oszlop nézetben */
+    }
+}
+
+.head-kep {
+  /* A kép maximális szélessége a szülő 100%-a lesz */
+  max-width: 100%;
+  /* A magasság automatikusan igazodik a szélességhez az arány megtartása érdekében */
+  height: auto;
+  /* Blokkszintű elemként való megjelenítés segíthet a felesleges margók elkerülésében */
+  display: block;
+}
+
+.kozep {
+    text-align: center;
+}
+
+.oszlop {
+    width: 50%;
+    float: left;
+}
+
+.ures {
+    clear: both;
+}
+
+a {
+        color: #203c54;
+}
+
+.tablazat {
+  overflow-x: auto; /* Vízszintes görgetés engedélyezése */
+  -webkit-overflow-scrolling: touch; /* Sima görgetés mobil eszközökön */
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+    background-color: #f0eeee;
+}
+

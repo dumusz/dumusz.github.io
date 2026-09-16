@@ -1,0 +1,35 @@
+body {
+    background-image: url(bg.jpg);
+}
+
+.keret {
+    width: 900px;
+    background-color: azure;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: justify;
+}
+
+h1 {
+    text-align: center;
+}
+
+.ai {
+    color: white;
+    background-color: black;
+    text-align: center;
+    font-size: 18pt;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.balkep {
+    float: left;
+    width: 100px;
+    margin-right: 10px;
+}
+
+.jobbkep {
+    float: right;
+    width: 100px;
+    margin-left: 10px;
+}
