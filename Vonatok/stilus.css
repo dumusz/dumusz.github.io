@@ -1,0 +1,44 @@
+body {
+    background-image: url(bg.jpg);
+}
+
+#keret {
+    width: 1000px;
+    background-color: white;
+    margin: 0 auto;
+    text-align: justify;
+    padding: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    font-size: 13pt;
+}
+
+/* 1. A konténer felkészítése a rugalmas elrendezésre */
+#kepek {
+    display: flex;         /* Flexbox elrendezés bekapcsolása */
+    flex-wrap: wrap;       /* Ha nem férnek el egy sorban, a képek új sorba ugranak */
+    gap: 15px;             /* A képek közötti üres hely (távolság) mérete */
+    justify-content: center; /* Opcionális: középre rendezi a képeket a div-en belül */
+    padding: 10px;         /* Opcionális: belső margó a kerettől */
+}
+
+/* 2. A képek azonos méretre kényszerítése */
+#kepek img {
+    width: 150px;          /* A képek fix szélessége (változtatható) */
+    height: 150px;         /* A képek fix magassága (változtatható) */
+    object-fit: cover;     /* Biztosítja, hogy a képek ne torzuljanak el, hanem szépen kitöltsék a keretet */
+    border-radius: 4px;    /* Opcionális: enyhén lekerekített sarkok a szebb megjelenésért */
+}
+
+.szines-szoveg {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  background-color: gray;
+  padding: 5px;
+}
