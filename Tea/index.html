@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A TEA</title>
+    <!-- Google Fonts importálása elegáns tipográfiához -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fcf9f2;
+            --container-bg: #ffffff;
+            --text-color: #2c2523;
+            --heading-color: #4a2c11;
+            --accent-color: #8c6239;
+            --accent-light: #f3ece1;
+            --border-color: #e5d8c5;
+            --shadow-color: rgba(74, 44, 17, 0.08);
+            --card-bg: #faf6f0;
+            --link-color: #7a4b22;
+            --warning-bg: #d9381e;
+            --warning-text: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1614;
+            --container-bg: #241f1c;
+            --text-color: #e6dfd5;
+            --heading-color: #e8c8a0;
+            --accent-color: #c99a66;
+            --accent-light: #332922;
+            --border-color: #42362d;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --card-bg: #2d2622;
+            --link-color: #dda876;
+            --warning-bg: #b3240e;
+            --warning-text: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Lora', Georgia, serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            transition: background-color 0.3s, color 0.3s;
+            padding-bottom: 60px;
+        }
+
+        /* Fejléc / Hero szekció */
+        .hero {
+            position: relative;
+            width: 100%;
+            max-height: 480px;
+            overflow: hidden;
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .hero img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.85);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(20, 15, 12, 0.85));
+            padding: 40px 20px 20px 20px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        /* Fő konténer */
+        .container {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            background-color: var(--container-bg);
+            padding: 50px 60px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Fejlécek és Címek */
+        h1.main-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-align: center;
+            color: var(--heading-color);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .author {
+            text-align: center;
+            font-style: italic;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed var(--border-color);
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            color: var(--heading-color);
+            margin: 40px 0 20px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--accent-color);
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        /* Képek és Kártyák */
+        .image-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .image-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .image-card img:hover {
+            transform: scale(1.015);
+            opacity: 0.95;
+        }
+
+        .caption {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--accent-color);
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        /* Hivatkozások / Irodalomjegyzék */
+        .references {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 30px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 40px;
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 18px;
+            font-size: 1rem;
+        }
+
+        .references a {
+            color: var(--link-color);
+            word-break: break-all;
+            text-decoration: underline;
+        }
+
+        .references a:hover {
+            color: var(--heading-color);
+        }
+
+        .ref-date {
+            margin-top: 25px;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--accent-color);
+        }
+
+        /* Figyelmeztető banner */
+        .warning-banner {
+            background-color: var(--warning-bg);
+            color: var(--warning-text);
+            text-align: center;
+            font-weight: 700;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-top: 25px;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Dokumentum oldalak szekció a legvégén */
+        .document-pages-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 3px double var(--border-color);
+        }
+
+        .document-pages-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .document-pages-container {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .doc-page-card {
+            width: 100%;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 6px 16px var(--shadow-color);
+            text-align: center;
+        }
+
+        .doc-page-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: transform 0.25s ease;
+        }
+
+        .doc-page-card img:hover {
+            transform: scale(1.01);
+        }
+
+        /* Téma váltó gomb */
+        .theme-toggle {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 22px;
+            font-family: 'Lora', serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            transition: background-color 0.3s, transform 0.2s;
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        /* Lightbox Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 40px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.88);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 6px;
+            box-shadow: 0 0 25px rgba(255,255,255,0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
+
+        /* Reszponzív nézet */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin-top: 20px;
+                border-radius: 0;
+                border: none;
+            }
+
+            h1.main-title {
+                font-size: 2.3rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            body {
+                font-size: 1rem;
+            }
+
+            .references {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero / Címlapkép header -->
+    <header class="hero">
+        <img src="ultetveny.png" alt="Teaültetvény naplementében">
+    </header>
+
+    <main class="container">
+        
+        <h1 class="main-title">A TEA</h1>
+
+
+        <!-- 1. Fejezet -->
+        <section>
+            <h2>1. A tea története és eredete</h2>
+            
+            <h3>1.1. A tea felfedezése és elterjedése</h3>
+            
+            <div class="image-card">
+                <img src="felfedezes.png" alt="A tea elterjedése" onclick="openModal(this)">
+                <div class="caption">A tea elterjedése</div>
+            </div>
+
+            <p>A tea története több ezer évre nyúlik vissza, és eredetét elsősorban Kínához kötik. A hagyomány szerint Sen-nung kínai uralkodó fedezte fel a teát, amikor egy tealevél belehullott a forró vizébe. A történet hitelessége nem bizonyított, de jól mutatja, milyen régi hagyományok kapcsolódnak ehhez az italhoz. Kínában a teafogyasztás fokozatosan a mindennapi élet részévé vált. Kezdetben elsősorban gyógyászati célokra és különleges szertartások alkalmával használták.</p>
+            
+            <p>A tea később más ázsiai országokba is eljutott, többek között Japánba és Koreába. Japánban különleges teaszertartás alakult ki, amely a nyugalmat, a figyelmet és a vendégszeretetet jelképezi. A kereskedelem fejlődésével a tea Európába is eljutott a 16–17. században. Eleinte drága, ritka árucikknek számított, ezért főként a gazdagabb társadalmi rétegek fogyasztották. A későbbi évszázadokban a termesztés bővülése és a kereskedelem fejlődése miatt egyre szélesebb körben vált elérhetővé.</p>
+
+            <h3>1.2. A tea szerepe a különböző kultúrákban</h3>
+            
+            <p>A tea számos ország kultúrájában fontos szerepet tölt be, és fogyasztása gyakran közösségi eseményhez kapcsolódik. Kínában a teázás a vendégek tiszteletének és a társas kapcsolatok ápolásának egyik formája. Japánban a hagyományos teaszertartás során minden mozdulatnak és eszköznek jelentősége van. Nagy-Britanniában a délutáni teázás hosszú idő óta ismert társadalmi szokás. Ezek a hagyományok azt mutatják, hogy a tea nem csupán ital, hanem a kulturális örökség része is.</p>
+            
+            <p>A világ különböző tájain eltérő módon készítik és fogyasztják a teát. Indiában népszerű a fűszerekkel, tejjel és cukorral készített masala chai. Marokkóban gyakran friss mentával és cukorral ízesítik a zöld teát. Törökországban a teát kis, tulipán alakú poharakban szolgálják fel, és a vendéglátás fontos részének tekintik. Magyarországon sokan reggel, este vagy a hideg téli napokon fogyasztanak egy csésze teát. A különböző elkészítési módok jól szemléltetik, mennyire változatos ez az ital a világban.</p>
+        </section>
+
+        <!-- 2. Fejezet -->
+        <section>
+            <h2>2. A tea fajtái és fogyasztása</h2>
+            
+            <h3>2.1. A teafajták bemutatása</h3>
+            
+            <p>A hagyományos teák a Camellia sinensis nevű növény leveleiből készülnek. A legismertebb fajták közé tartozik a fekete tea, a zöld tea, a fehér tea és az oolong tea. Ezek elsősorban a feldolgozásuk módjában és a levelek oxidációjának mértékében különböznek egymástól. A fekete tea általában erőteljesebb ízű, míg a zöld tea frissebb, növényes aromájú lehet. A fehér tea gyakran enyhébb ízű, az oolong pedig a zöld és a fekete tea jellegzetességei között helyezkedik el.</p>
+            
+            <p>A teák ízét nemcsak a fajtájuk, hanem a termőterület és a feldolgozás módja is befolyásolja. A talaj összetétele, az éghajlat és a tengerszint feletti magasság mind hatással lehet a levelek tulajdonságaira. Egyes teákat virágokkal, gyümölcsökkel vagy fűszerekkel is ízesítenek. A különböző keverékeknek köszönhetően a fogyasztók sokféle aromájú ital közül választhatnak. Fontos azonban megkülönböztetni a valódi teákat a gyógynövényes forrázatoktól, például a kamilla- vagy a borsmentateától.</p>
+
+            <h3>2.2. A tea elkészítésének módjai</h3>
+            
+            <p>A jó tea elkészítéséhez megfelelő minőségű vízre, teára és a fajtának megfelelő hőmérsékletre van szükség. A fekete teát általában forró, közel forrásban lévő vízzel készítik. A zöld teához gyakran valamivel hűvösebb vizet használnak, hogy az ital ne váljon túl keserűvé. Az áztatási idő szintén meghatározza a tea ízét és erősségét. Ha túl sokáig hagyjuk a leveleket a vízben, bizonyos teák kellemetlenül fanyar ízűvé válhatnak.</p>
+
+            <p>A tea készülhet filterből, szálas tealevelekből vagy különleges teaszűrő segítségével. A szálas tea esetében érdemes figyelni a megfelelő mennyiségre, mert a túl sok levél túl intenzív ízt eredményezhet. Az elkészült ital ízesíthető mézzel, citrommal, tejjel vagy más hozzávalókkal. A mézet célszerű akkor hozzáadni, amikor az ital már kissé lehűlt. A különböző elkészítési módszerek kipróbálásával mindenki megtalálhatja a saját ízlésének megfelelő változatot.</p>
+
+            <h3>2.3. A tea hatása és a tudatos teafogyasztás</h3>
+            
+            <p>A tea számos olyan természetes vegyületet tartalmaz, amely hozzájárul az ital jellegzetes tulajdonságaihoz. A valódi teákban például polifenolok találhatók, amelyek antioxidáns tulajdonságokkal rendelkeznek. A fekete és a zöld tea koffeint is tartalmaz, ezért élénkítő hatású lehet. A koffeintartalom függ a tea fajtájától, a felhasznált mennyiségtől és az áztatási időtől. A koffeinre érzékenyek számára ezért fontos lehet a fogyasztás mennyiségének és időpontjának megválasztása.</p>
+
+            <p>A tea rendszeres fogyasztása sok ember számára a napi folyadékbevitel kellemes része lehet. A cukor nélküli tea általában kevés energiát tartalmaz, ezért a hozzáadott cukor mennyiségére érdemes odafigyelni. A gyógynövényes teák összetétele és hatása eltérhet a hagyományos teákétól, ezért nem minden esetben tekinthetők egymással felcserélhetőnek. Bizonyos gyógynövények kölcsönhatásba léphetnek gyógyszerekkel, így különleges egészségi helyzetben érdemes szakember tanácsát kérni. A tudatos teafogyasztás lényege a változatosság, a megfelelő mennyiség és az egyéni érzékenység figyelembevétele.</p>
+
+            <div class="image-card">
+                <img src="elkeszites.png" alt="A tea elkészítése" onclick="openModal(this)">
+                <div class="caption">A tea elkészítése</div>
+            </div>
+        </section>
+
+        <!-- Felhasznált irodalom -->
+        <section class="references">
+            <h2>Felhasznált irodalom</h2>
+            <ol>
+                <li>
+                    Food and Agriculture Organization of the United Nations (FAO): Tea – Markets and Trade.<br>
+                    A tea eredete, története, termesztése, gazdasági és kulturális jelentősége.<br>
+                    <a href="https://www.fao.org/markets-and-trade/commodities-overview/beverages/tea/" target="_blank" rel="noopener noreferrer">https://www.fao.org/markets-and-trade/commodities-overview/beverages/tea/</a>
+                </li>
+                <li>
+                    National Center for Complementary and Integrative Health (NCCIH): Tea.<br>
+                    A teafajták, a tea összetevői és az egészségre gyakorolt hatásai.<br>
+                    <a href="https://www.nccih.nih.gov/health/tea" target="_blank" rel="noopener noreferrer">https://www.nccih.nih.gov/health/tea</a>
+                </li>
+                <li>
+                    National Center for Biotechnology Information (NCBI): Health Benefits of Tea – Herbal Medicine.<br>
+                    A tea története, összetevői és lehetséges élettani hatásai.<br>
+                    <a href="https://www.ncbi.nlm.nih.gov/books/NBK92768/" target="_blank" rel="noopener noreferrer">https://www.ncbi.nlm.nih.gov/books/NBK92768/</a>
+                </li>
+                <li>
+                    International Agency for Research on Cancer (IARC): Coffee, Tea, Mate, Methylxanthines and Methylglyoxal. IARC Monographs on the Evaluation of Carcinogenic Risks to Humans, 51. kötet. Lyon, 1991.<br>
+                    A tea összetételével, feldolgozásával és fogyasztásával kapcsolatos tudományos háttér. <a href="https://www.ncbi.nlm.nih.gov/books/NBK507034/" target="_blank" rel="noopener noreferrer">https://www.ncbi.nlm.nih.gov/books/NBK507034/</a>
+                </li>
+            </ol>
+
+            <div class="ref-date">A források megtekintésének dátuma: 2026. október 14.</div>
+
+            <div class="warning-banner">
+                Figyelem! A teljes dokumentum MI felhasználásával készült!
+            </div>
+        </section>
+
+        <!-- Dokumentum oldalak szekció a legvégén (egymás alatt) -->
+        <section class="document-pages-section">
+            <h2>Dokumentum oldalak</h2>
+            <div class="document-pages-container">
+                <div class="doc-page-card">
+                    <img src="Tea_feladat-1.jpg" alt="Tea feladat 1. oldal" onclick="openModal(this)">
+                </div>
+                <div class="doc-page-card">
+                    <img src="Tea_feladat-2.jpg" alt="Tea feladat 2. oldal" onclick="openModal(this)">
+                </div>
+                <div class="doc-page-card">
+                    <img src="Tea_feladat-3.jpg" alt="Tea feladat 3. oldal" onclick="openModal(this)">
+                </div>
+                <div class="doc-page-card">
+                    <img src="Tea_feladat-4.jpg" alt="Tea feladat 4. oldal" onclick="openModal(this)">
+                </div>
+                <div class="doc-page-card">
+                    <img src="Tea_feladat-5.jpg" alt="Tea feladat 5. oldal" onclick="openModal(this)">
+                </div>
+                <div class="doc-page-card">
+                    <img src="Tea_feladat-6.jpg" alt="Tea feladat 6. oldal" onclick="openModal(this)">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Sötét / Világos téma gomb -->
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Esti mód</button>
+
+    <!-- Lightbox Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script>
+        // Téma váltás funkció
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeBtn');
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                btn.innerHTML = '🌙 Esti mód';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                btn.innerHTML = '☀️ Nappali mód';
+            }
+        }
+
+        // Lightbox képmegjelenítő
+        function openModal(imgElement) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            modal.style.display = "block";
+            modalImg.src = imgElement.src;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = "none";
+        }
+    </script>
+</body>
+</html>
