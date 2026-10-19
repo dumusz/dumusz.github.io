@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A II. világháború földön, vízen, levegőben</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fekete-fehér téma CSS változói */
+        :root {
+            --bg-primary: #ffffff;
+            --text-primary: #111111;
+            --text-secondary: #444444;
+            --bg-card: #f8f9fa;
+            --border-strong: #111111;
+            --border-subtle: #d1d5db;
+            --bg-box: #f3f4f6;
+            --header-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Éjszakai (sötét) mód felülbírálásai */
+        body.dark-mode {
+            --bg-primary: #0a0a0a;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --bg-card: #171717;
+            --border-strong: #ffffff;
+            --border-subtle: #374151;
+            --bg-box: #1f2937;
+            --header-bg: rgba(10, 10, 10, 0.95);
+        }
+
+        /* Globális téma-stílusok alkalmazása */
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-card {
+            background-color: var(--bg-card);
+            border-color: var(--border-subtle);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .theme-box {
+            background-color: var(--bg-box);
+            border-color: var(--border-subtle);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .theme-border-strong {
+            border-color: var(--border-strong);
+        }
+
+        .theme-border-subtle {
+            border-color: var(--border-subtle);
+        }
+
+        .theme-text-subtle {
+            color: var(--text-secondary);
+        }
+
+        .theme-header {
+            background-color: var(--header-bg);
+            border-color: var(--border-subtle);
+        }
+
+        /* Technikai tervrajz keret stílus */
+        .blueprint-frame {
+            border: 1px solid var(--border-strong);
+            position: relative;
+        }
+        .blueprint-frame::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 1px dashed var(--border-subtle);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Finom gördítősáv */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-subtle);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen selection:bg-mono-400">
+
+    <!-- Fejléc és Navigáció -->
+    <header class="sticky top-0 z-50 theme-header backdrop-blur-md border-b transition-colors">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="font-serif font-bold text-lg sm:text-xl tracking-wider uppercase border-b-2 theme-border-strong py-0.5">
+                WWII Technical Archive
+            </a>
+
+            <!-- Navigáció & Témaváltó Gomb -->
+            <div class="flex items-center space-x-4 sm:space-x-6">
+                <nav class="hidden md:flex space-x-6 text-sm font-medium tracking-wide uppercase">
+                    <a href="#legi" class="hover:underline underline-offset-4 transition-all">Légi</a>
+                    <a href="#tengeri" class="hover:underline underline-offset-4 transition-all">Tengeri</a>
+                    <a href="#szarazfoldi" class="hover:underline underline-offset-4 transition-all">Szárazföldi</a>
+                    <a href="#irodalom" class="hover:underline underline-offset-4 transition-all">Irodalom</a>
+                </nav>
+
+                <!-- Kért Nappali / Éjszakai mód váltó gomb -->
+                <button id="theme-toggle" class="px-4 py-2 border rounded-md font-mono text-xs uppercase font-bold tracking-wider theme-card hover:opacity-80 transition-all">
+                    🌙 Éjszakai mód
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Fő tartalom -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+        <!-- Cím és Bevezetés -->
+        <section class="border-b theme-border-subtle pb-12">
+            <div class="text-center space-y-4">
+                <span class="text-xs font-mono uppercase tracking-widest theme-text-subtle">Hadtörténeti és Technológiai Tanulmány</span>
+                <h1 class="text-3xl sm:text-5xl font-serif font-bold tracking-tight uppercase leading-tight">
+                    A II. világháború földön, vízen, levegőben
+                </h1>
+                <div class="w-24 h-1 border-b-2 theme-border-strong mx-auto mt-4"></div>
+            </div>
+
+            <!-- Bevezető szöveg (teljes 4 bekezdés) -->
+            <div class="mt-10 space-y-6 text-base sm:text-lg leading-relaxed text-justify font-serif">
+                <p>
+                    A második világháború nemcsak a történelem legvéresebb fegyveres konfliktusa volt, hanem a hadiipar és a műszaki technológia példátlan mértékű felgyorsulásának korszaka is. A szemben álló nagyhatalmak óriási erőforrásokat mozgósítottak annak érdekében, hogy tudományos és mérnöki áttörések révén tegyenek szert döntő fölényre a harcmezőkön. Ennek a lázas fejlesztési versenynek az eredményeként olyan úttörő hadi eszközök születtek meg, amelyek alapjaiban változtatták meg a hadviselés doktrínáit. A háború kitörésekor még az interwar korszak elvei uralkodtak, ám a konfliktus végére a sugárhajtás, a nehézpáncélzat és a rakétatechnológia vált a meghatározóvá. A mérnöki zsenialitás és az ipari kapacitás összecsapása szárazföldön, vízen és a levegőben egyaránt olyan ikonikus konstrukciókat hozott létre, amelyek máig a hadtörténet sarokköveinek számítanak. Ezek a fegyverrendszerek nemcsak a maguk korában képviselték a technológiai fejlődés csúcsát, hanem előrevetítették a hidegháborús fegyverkezési versenyt is. Az alábbiakban bemutatott kilenc katonai eszköz tökéletesen szemlélteti, miként formálta át a mérnöki innováció a XX. századi hadi gépezetet.
+                </p>
+                <p>
+                    A légi hadviselés területén a technológiai ugrás különösen drámai gyorsasággal ment végbe a háború hat éve alatt. A német Junkers Ju 87 „Stuka” zuhanóbombázó a harcok kezdeti szakaszában a villámháborús taktika és a szárazföldi csapatok közvetlen, precíziós támogatásának félelmetes szimbólumává vált. Ezzel szemben a háború utolsó éveiben megjelenő Messerschmitt Me 262 „Schwalbe” már a sugárhajtású repülés új korszakának eljövetelét jelezte, felülmúlva minden korabeli dugattyús motoros vadászgépet. Az amerikai B-29 Superfortress stratégiai bombázó pedig a túlnyomásos kabinjával, távvezérelt gépfegyvertornyaival és óriási hatótávolságával a repüléstechnika igazi csúcsteljesítményét képviselte. Ez a három légi eszköz hűen tükrözi a harcászati zuhanóbombázástól a sugárhajtású elfogóvadászokon át a stratégiai bombázásig tartó teljes fejlődési ívet. A levegő urai nemcsak a csaták kimenetelét döntötték el, hanem alapjaiban rajzolták át a stratégiai tervezés határait is. Mindhárom repülőgép saját kategóriájában egyedülállót alkotott, és maradandó nyomot hagyott az egyetemes repüléstörténetben.
+                </p>
+                <p>
+                    A tengeri és tenger alatti összecsapások a világtenger teljes felületén megkövetelték a legmodernebb hajóépítési és hidrodinamikai megoldások alkalmazását. A német Kriegsmarine gerincét alkotó Type VII U-boot a hagyományos búvárhajó-tervezés legüzembiztosabb és legelterjedtebb típusa volt az atlanti csata során. Velük szemben a japán Yamato-osztályú csatahajók a felszíni flotta nehéztüzérségi erejének abszolút csúcsát képviselték a történelem legnagyobb ágyúival és legvastagabb páncélzatával. A háború végén megjelenő német Type XXI U-boot viszont teljesen felülírta a tengeralattjáró-hadviselés szabályait, hiszen ezt a modellt már kifejezetten a tartós víz alatti jelenlétre és nagy sebességre tervezték. Ez a típus áramvonalas hajótestével és fejlett akkumulátoraival a modern, atommeghajtás előtti tengeralattjárók közvetlen ősévé vált. A gigantikus felszíni csatahajók és a rejtőzködő, csúcstechnológiás búvárhajók küzdelme jól mutatja a tengeri stratégia drámai átalakulását. A három vizsgált tengeri eszköz együtt szimbolizálja a klasszikus tengeri giga-konstrukciók hanyatlását és a modern tengeralattjáró-korszak felemelkedését.
+                </p>
+                <p>
+                    A szárazföldi frontokon a páncélosok, a tüzérségi eszközök és a mozgékonyság tökéletes egyensúlyának megtalálása vált a győzelem kulcsává. A német Tiger I nehézharckocsi páratlan páncélvédettségével és a félelmetes 88 mm-es ágyújával a technológiai erődemonstráció és a taktikai fölény szimbóluma lett. A szovjet T-34, majd annak továbbfejlesztett változata, a T-34-85 a döntött páncélzat, a megbízható dízelmotor és a tömeggyárthatóság révén a páncélostervezés legsikeresebb kompromisszumát nyújtotta. Ugyancsak szovjet részről a BM-13 Katyusa rakéta-sorozatvető a tüzérségi hadviselést forradalmasította, tömeges pusztító erejével és lélektani hatásával rettegésben tartva az ellenséget. Ezek a szárazföldi harceszközök nemcsak a csatamezők közvetlen alakulását határozták meg, hanem az ipari kapacitások és a harcászati elvek végső tesztjévé is váltak. A nehézpáncélosok, a tömegesen gyártható közepes harckocsik és a mozgékony rakétatüzérség kombinációja új alapokra helyezte a szárazföldi doktrínákat. Végső soron ezen kilenc fegyverrendszer részletes megismerése elengedhetetlen ahhoz, hogy megértsük a második világháború katonai-technológiai dimenzióját.
+                </p>
+            </div>
+
+            <!-- Csatajelenet kép (simán <img> tag használatával) -->
+            <div class="mt-8 blueprint-frame p-2 theme-box">
+                <img src="csata.jpg" alt="Csatajelenet" class="w-full h-auto grayscale contrast-125 object-cover">
+            </div>
+        </section>
+
+        <!-- Tartalomjegyzék kártyák -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="#legi" class="group p-6 border theme-card hover:border-strong transition-all rounded-sm">
+                <div class="text-xs font-mono uppercase theme-text-subtle">01. Kategória</div>
+                <h3 class="text-xl font-bold font-serif uppercase mt-2 group-hover:underline">Légi fegyverrendszerek</h3>
+                <p class="text-sm theme-text-subtle mt-2">B-29 Superfortress, Me 262 Schwalbe, Ju 87 Stuka</p>
+            </a>
+            <a href="#tengeri" class="group p-6 border theme-card hover:border-strong transition-all rounded-sm">
+                <div class="text-xs font-mono uppercase theme-text-subtle">02. Kategória</div>
+                <h3 class="text-xl font-bold font-serif uppercase mt-2 group-hover:underline">Tengeri hadi eszközök</h3>
+                <p class="text-sm theme-text-subtle mt-2">Type VII U-boot, Yamato-osztály, Type XXI U-boot</p>
+            </a>
+            <a href="#szarazfoldi" class="group p-6 border theme-card hover:border-strong transition-all rounded-sm">
+                <div class="text-xs font-mono uppercase theme-text-subtle">03. Kategória</div>
+                <h3 class="text-xl font-bold font-serif uppercase mt-2 group-hover:underline">Szárazföldi páncélosok</h3>
+                <p class="text-sm theme-text-subtle mt-2">Tiger I, T-34 / T-34-85, BM-13 Katyusa</p>
+            </a>
+        </section>
+
+        <!-- 1. LÉGI HADVISELÉS -->
+        <section id="legi" class="space-y-12 border-t theme-border-subtle pt-12">
+            <div class="border-b theme-border-subtle pb-4">
+                <span class="text-xs font-mono uppercase tracking-widest theme-text-subtle">Fejezet I.</span>
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold uppercase tracking-tight">Légi fegyverrendszerek</h2>
+            </div>
+
+            <!-- B-29 Superfortress -->
+            <article class="space-y-6 border-b theme-border-subtle pb-12">
+                <h3 class="text-2xl font-serif font-bold uppercase tracking-wide">B-29 Superfortress (USA)</h3>
+                
+                <div class="space-y-4 leading-relaxed font-serif text-justify">
+                    <h4 class="font-sans font-bold text-sm uppercase tracking-widest theme-text-subtle border-l-2 theme-border-strong pl-3">1. A B-29 Superfortress története és hadi alkalmazása</h4>
+                    <p>
+                        A Boeing B-29 Superfortress a második világháború egyik legfejlettebb és legnagyobb hatású repülőgépe volt, amelyet kifejezetten a csendes-óceáni hadszíntér hatalmas távolságainak leküzdésére terveztek. A projekt óriási költségvetéssel gazdálkodott, és összköltsége még az atomfegyver kifejlesztését célzó Manhattan Terv büdzséjét is meghaladta. Ez volt az első olyan sorozatban gyártott bombázó, amely teljesen túlnyomásos kabinnal rendelkezett, így a személyzet nagy magasságban oxigénmaszk nélkül is teljesíthetett szolgálatot. A védelmi fegyverzetét analóg számítógépes tűzvezető rendszerrel irányított, távvezérlésű géppuskatornyok alkották. A típus első prototípusa 1942 szeptemberében emelkedett a magasba, és a sorozatgyártás beindítása hatalmas ipari erőfeszítést igényelt. A gépek négy darab nagy teljesítményű Wright R-3350-es csillagmotorral működtek, amelyek kezdetben hajlamosak voltak a túlmelegedésre. A B-29-es mérnöki megoldásai merőben új korszakot nyitottak a repülés történetében, megalapozva a modern stratégiai bombázást.
+                    </p>
+                    <p>
+                        A B-29-eseket elsősorban a Japán Császárság elleni kiterjedt stratégiai bombázóhadjáratok során vetették be a csendes-óceáni térségben. A Mariana-szigetek elfoglalása után a szövetségesek ideális támaszpontokhoz jutottak, ahonnan közvetlenül elérhették a japán anyaországot. Curtis LeMay tábornok irányítása alatt az éjszakai, alacsony magasságból végrehajtott tűzbombázási taktika óriási pusztítást végzett a főbb ipari városokban. A típus történetének legmeghatározóbb pillanatai az 1945 augusztusában Hiroshima és Nagaszaki ellen végrehajtott atomtámadások voltak. Az Enola Gay és a Bockscar névre keresztelt speciális B-29-esek bevetése felgyorsította a második világháború végső lezárását. A háború után a gép az amerikai stratégiai elrettentés gerincét képezte, és az 1950-ben kitört koreai háborúban is aktívan szolgált. Végül az 1950-es évek végén vonták ki a szolgálatból, de öröksége a mai napig meghatározó a hadirepülés történetében.
+                    </p>
+                </div>
+
+                <!-- Technikai leírás -->
+                <div class="theme-box p-6 border rounded-sm font-mono text-sm space-y-2">
+                    <h4 class="font-bold text-base font-sans uppercase tracking-wider mb-3">2. Technikai leírás és specifikációk</h4>
+                    <p><strong>Személyzet:</strong> 11 fő (pilóták, navigátor, bombázó, mérnök, rádiós, radaroperátor, lövészek)</p>
+                    <p><strong>Méretek:</strong> Hosszúság: 30,18 m | Fesztávolság: 43,05 m | Magasság: 8,46 m</p>
+                    <p><strong>Tömegadatok:</strong> Üres tömeg: 33 800 kg | Maximális felszállótömeg: 60 560 kg</p>
+                    <p><strong>Meghajtás:</strong> 4 × Wright R-3350 Duplex-Cyclone turbófeltöltős csillagmotor (2200 LE/motor)</p>
+                    <p><strong>Sebesség:</strong> Legnagyobb sebesség: 574 km/h | Utazósebesség: 350 km/h</p>
+                    <p><strong>Hatótávolság és csúcsmagasság:</strong> Harci hatótáv: 5230 km | Szolgálati csúcsmagasság: 9710 m</p>
+                    <p><strong>Önvédelmi fegyverzet:</strong> 8–12 × 12,7 mm-es M2 Browning géppuska távvezérelt tornyokban</p>
+                    <p><strong>Bombaterhelés:</strong> 9000 kg belső bombatérben, illetve speciális nukleáris fegyverek (Little Boy, Fat Man)</p>
+                    <p><strong>Kabinrendszer:</strong> Túlnyomásos orr-, középső- és farokkabingyűrűk összekötő alagúttal</p>
+                    <p><strong>Elektronika:</strong> General Electric analóg számítógépes tűzvezetés és AN/APQ-13/7 radarberendezés</p>
+                </div>
+
+                <!-- Kép és Képfelirat -->
+                <figure class="blueprint-frame p-3 theme-box text-center">
+                    <img src="b-29_superfortress.png" alt="B-29 Superfortress" class="w-full h-auto grayscale contrast-125 mx-auto">
+                    <figcaption class="mt-3 text-sm font-mono uppercase tracking-wider theme-text-subtle border-t theme-border-subtle pt-2">
+                        B-29 Superfortress
+                    </figcaption>
+                </figure>
+            </article>
+
+            <!-- Messerschmitt Me 262 „Schwalbe” -->
+            <article class="space-y-6 border-b theme-border-subtle pb-12">
+                <h3 class="text-2xl font-serif font-bold uppercase tracking-wide">Messerschmitt Me 262 „Schwalbe”</h3>
+                
+                <div class="space-y-4 leading-relaxed font-serif text-justify">
+                    <h4 class="font-sans font-bold text-sm uppercase tracking-widest theme-text-subtle border-l-2 theme-border-strong pl-3">1. A Me 262 fejlesztése és hadi alkalmazása</h4>
+                    <p>
+                        A Messerschmitt Me 262 „Schwalbe” a hadiipar és a repülés történetének egyik legmeghatározóbb mérföldköve, mint a világ első sorozatban gyártott és harcba vetett sugárhajtású vadászgépe. A típus fejlesztése már a második világháború kitörése előtt, 1938-ban kezdetét vette a Messerschmitt vállalat tervezőasztalain. A sugárhajtóművek kiforratlansága és az áramvonalas sárkányszerkezet technológiai kihívásai miatt az első repülésre csak 1941-ben került sor, még hagyományos dugattyús motorral. A sorozatgyártás beindítását jelentősen hátráltatták a stratégiai nyersanyagok hiánya, az alkatrészellátási nehézségek, valamint a szövetségesek folyamatos bombatámadásai. Adolf Hitler politikai döntése, miszerint a gépet ne vadászként, hanem villámbombázóként (Blitzbomber) gyártsák, tovább késleltette a harci alkalmazását. Amikor a gép végül 1944 derekán kikerült a frontra, technológiai szempontból messze megelőzte a korát, és teljes ámulatba ejtette az ellenfeleket. Bár a háború kimenetelét már nem tudta megváltoztatni, a légihadszíntéren nyújtott teljesítménye és a modern hadviselésre gyakorolt hatása vitathatatlan.
+                    </p>
+                    <p>
+                        A „Schwalbe” a harci bevetések során rendkívüli fenyegetést jelentett a szövetséges bombázókötelékekre és azok kísérővadászaira egyaránt. Közel 870 km/h-s végsebességével a német gép több mint 150 km/h-val volt gyorsabb a legjobb szövetséges dugattyús motoros vadászoknál. A szövetséges pilóták hamar felismerték, hogy légi harcban szinte képtelenség elfogni a gépet, ezért főleg a fel- és leszállás pillanatában, a repülőterek felett vadásztak rájuk. A sugárhajtóművek kezdetleges technológiája miatt a motorok alacsony fordulatszámon rendkívül lassan reagáltak, ami a német pilótáktól különleges precizitást követelt meg. A gépbe szerelt négy darab 30 mm-es gépágyú olyan elsöprő tűzerőt biztosított, amellyel egyetlen jól irányzott sorozattal képes volt megsemmisíteni egy nehézbombázót. A típusból a háború végéig több mint 1400 darab épült, de az üzemanyaghiány és a tapasztalt pilóták eleste miatt csak töredékük vett részt aktív harcokban. A Me 262 úttörő konstrukciója a háború utáni amerikai és szovjet sugárhajtású repülőgép-fejlesztések közvetlen alapjává vált.
+                    </p>
+                </div>
+
+                <!-- Technikai leírás -->
+                <div class="theme-box p-6 border rounded-sm font-mono text-sm space-y-2">
+                    <h4 class="font-bold text-base font-sans uppercase tracking-wider mb-3">2. Technikai leírás és specifikációk</h4>
+                    <p><strong>Személyzet:</strong> 1 fő (a vadászváltozatoknál) vagy 2 fő (a kétüléses éjszakai vadász és kiképző változatoknál)</p>
+                    <p><strong>Méretek:</strong> Hosszúság: 10,60 m | Fesztávolság: 12,60 m | Magasság: 3,50 m</p>
+                    <p><strong>Tömegadatok:</strong> Üres tömeg: 3795 kg | Maximális felszállótömeg: 6472 kg</p>
+                    <p><strong>Meghajtás:</strong> 2 × Junkers Jumo 004B-1 tengelyirányú átömlésű turbósugárhajtómű (8,8 kN tolóerő/motor)</p>
+                    <p><strong>Sebesség:</strong> Legnagyobb sebesség: 870 km/h (6000 m magasságban) | Utazósebesség: 720 km/h</p>
+                    <p><strong>Hatótávolság és csúcsmagasság:</strong> Hatótávolság: 1050 km | Szolgálati csúcsmagasság: 11 450 m</p>
+                    <p><strong>Beépített fegyverzet:</strong> 4 × 30 mm-es MK 108 gépágyú a gép orrában (összesen 360 lőszerrel)</p>
+                    <p><strong>Külső fegyverzet:</strong> 24 × 55 mm-es R4M nem irányított levegő-levegő rakéta a szárnyak alatt</p>
+                    <p><strong>Bombaterhelés:</strong> A Jabo (vadászbombázó) változatnál legfeljebb 2 × 250 kg vagy 1 × 500 kg bomba</p>
+                </div>
+
+                <!-- Kép és Képfelirat -->
+                <figure class="blueprint-frame p-3 theme-box text-center">
+                    <img src="messerschmitt_me_262.png" alt="Messerschmitt Me 262" class="w-full h-auto grayscale contrast-125 mx-auto">
+                    <figcaption class="mt-3 text-sm font-mono uppercase tracking-wider theme-text-subtle border-t theme-border-subtle pt-2">
+                        Messerschmitt Me 262
+                    </figcaption>
+                </figure>
+            </article>
+
+            <!-- Junkers Ju 87 „Stuka” -->
+            <article class="space-y-6">
+                <h3 class="text-2xl font-serif font-bold uppercase tracking-wide">Junkers Ju 87 „Stuka”</h3>
+                
+                <div class="space-y-4 leading-relaxed font-serif text-justify">
+                    <h4 class="font-sans font-bold text-sm uppercase tracking-widest theme-text-subtle border-l-2 theme-border-strong pl-3">1. A Ju 87 Stuka története és hadi alkalmazása</h4>
+                    <p>
+                        A Junkers Ju 87, közismertebb nevén a „Stuka” (a Sturzkampfflugzeug, azaz zuhanóbombázó szóból) a második világháború és a német villámháborús taktika egyik legmeghatározóbb szimbóluma volt. A gépet Hermann Pohlmann tervezte az 1930-as évek közepén, és az első prototípus 1935-ben emelkedett a magasba. A típus éles körülmények között először a spanyol polgárháborúban, a Condor légiunió kötelékében bizonyította rendkívüli pontosságát és pusztító hatékonyságát. A háború korai szakaszában, Lengyelország, Franciaország és a Balkán megszállásakor a Stukák döntő szerepet játszottak a szárazföldi csapatok közvetlen légi támogatásában. A gép futóművére szerelt, a menetszél által hajtott szirénák – a híres „Jerikói kürtök” – borzalmas sikító hangot adtak ki zuhanás közben, ami súlyos pszichológiai terrort gyakorolt az ellenséges katonákra. A hajszálpontos bombatámadások lehetőségét az automatikus kilebegtető rendszer biztosította, amely még akkor is kihozta a gépet a zuhanásból, ha a pilóta az óriási G-erők miatt ideiglenesen elveszítette az eszméletét.
+                    </p>
+                    <p>
+                        A sikerek ellenére az angliai csata során hamar fény derült a típus súlyos hiányosságaira és sebezhetőségére. A Stuka viszonylag lassú volt, és a szövetségesek moderner vadászgépeivel – mint a Spitfire vagy a Hurricane – szemben védtelennek bizonyult megfelelő saját vadászkíséret nélkül. Ennek következtében a Luftwaffe kénytelen volt kivonni a gépet a nyugati frontvonalakból, és más hadszínterekre átcsoportosítani. A keleti fronton és a Földközi-tenger térségében azonban továbbra is rendkívül eredményesen alkalmazták, különösen a páncélozott járművek és hadihajók elleni harcban. A háború későbbi szakaszában a jól ismert G változatot, a „Gusztávot” két darab 37 mm-es gépágyúval szerelték fel, amelyből a legendás ász, Hans-Ulrich Rudel hozott létre rettegett tankelhárító fegyvert. Bár a háború végére a típus végleg elavulttá vált, a hadi repülés történetében a precíziós bombázás úttörőjeként maradt meg.
+                    </p>
+                </div>
+
+                <!-- Technikai leírás -->
+                <div class="theme-box p-6 border rounded-sm font-mono text-sm space-y-2">
+                    <h4 class="font-bold text-base font-sans uppercase tracking-wider mb-3">2. Technikai leírás és specifikációk</h4>
+                    <p><strong>Személyzet:</strong> 2 fő (pilóta és a hátsó lövész/rádiós)</p>
+                    <p><strong>Méretek:</strong> Hosszúság: 11,00 m | Fesztávolság: 13,80 m | Magasság: 4,23 m</p>
+                    <p><strong>Tömegadatok:</strong> Üres tömeg: 3200 kg | Maximális felszállótömeg: 5000 kg</p>
+                    <p><strong>Meghajtás:</strong> 1 × Junkers Jumo 211J V12-es folyadékhűtéses fordított hengerelrendezésű motor (1420 LE)</p>
+                    <p><strong>Sebesség:</strong> Legnagyobb sebesség: 410 km/h | Utazósebesség: 320 km/h</p>
+                    <p><strong>Hatótávolság:</strong> 500–600 km</p>
+                    <p><strong>Szolgálati csúcsmagasság:</strong> 7290 m</p>
+                    <p><strong>Önvédelmi fegyverzet:</strong> 2 × 7,92 mm-es MG 17 géppuska a szárnyakban + 1 × 7,92 mm-es MG 15 vagy MG 81Z dupla géppuska hátul</p>
+                    <p><strong>Páncéltörő fegyverzet:</strong> A Ju 87G változatnál 2 × 37 mm-es BK 3,7 gépágyú a szárnyak alatt</p>
+                    <p><strong>Bombaterhelés:</strong> 1 × 250 kg vagy 500 kg-os főbomba a törzs alatt, plusz 4 × 50 kg-os bomba a szárnyak alatt</p>
+                    <p><strong>Különleges berendezés:</strong> Automatikus zuhanásból kilebegtető rendszer és a futóműre szerelhető „Jerikói kürt” sziréna</p>
+                </div>
+
+                <!-- Kép és Képfelirat -->
+                <figure class="blueprint-frame p-3 theme-box text-center">
+                    <img src="junkers_ju_87.png" alt="Junkers Ju 87" class="w-full h-auto grayscale contrast-125 mx-auto">
+                    <figcaption class="mt-3 text-sm font-mono uppercase tracking-wider theme-text-subtle border-t theme-border-subtle pt-2">
+                        Junkers Ju 87
+                    </figcaption>
+                </figure>
+            </article>
+        </section>
+
+        <!-- 2. TENGERI HADVISELÉS -->
+        <section id="tengeri" class="space-y-12 border-t theme-border-subtle pt-12">
+            <div class="border-b theme-border-subtle pb-4">
+                <span class="text-xs font-mono uppercase tracking-widest theme-text-subtle">Fejezet II.</span>
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold uppercase tracking-tight">Tengeri hadi eszközök</h2>
+            </div>
+
+            <!-- Type VII U-boot -->
+            <article class="space-y-6 border-b theme-border-subtle pb-12">
+                <h3 class="text-2xl font-serif font-bold uppercase tracking-wide">Type VII U-boot</h3>
+                
+                <div class="space-y-4 leading-relaxed font-serif text-justify">
+                    <h4 class="font-sans font-bold text-sm uppercase tracking-widest theme-text-subtle border-l-2 theme-border-strong pl-3">1. A Type VII U-boot története és hadi alkalmazása</h4>
+                    <p>
+                        A Type VII tengeralattjáró-osztály a II. világháború legszélesebb körben gyártott és legismertebb búvárhajó-típusa volt, amely a német Kriegsmarine gerincét alkotta az atlanti csatában. Tervezése az 1930-as évek közepén indult, az I. világháborús UB III típus tapasztalataira és a finn hajógyárakban végzett titkos fejlesztésekre építve. A sorozatgyártás során több alváltozatot is létrehoztak, amelyek közül a VII C modell vált a legnagyobb számban előállított változattá. A típus kiváló tengerállósággal, jó manőverezőképességgel és gyors merülési idővel rendelkezett, ami elengedhetetlen volt a túléléshez az ellenséges vizeken. A német tengeralattjáró-flotta Karl Dönitz tengernagy irányítása alatt a hírhedt „farkasfalka” taktikát alkalmazta ezekkel a hajókkal. Ennek során több tengeralattjáró összehangoltan, éjszaka, a felszínen támadta meg a szövetséges kereskedelmi konvojokat. A háború első éveiben a Type VII-esek óriási veszteségeket okoztak a szövetséges hajózásnak, és komolyan fenyegették Nagy-Britannia utánpótlási vonalait.
+                    </p>
+                    <p>
+                        A szövetségesek technológiai és taktikák terén elért előrelépései azonban a háború közepétől fokozatosan megtörték a Type VII-esek dominanciáját. A radarok, a szonárok (Asdic), az integrált repülőgépes járőrözés és az Enigma kódfejtése miatt a tengeralattjáró-háború a németek számára egyre veszélyesebbé és véresebbé vált. A Type VII-esek viszonylag alacsony víz alatti sebessége és korlátozott akkumulátorkapacitása miatt a búvárhajók sérülékenyek lettek a modern szövetséges elhárító erőkkel szemben. A veszteségek növekedése ellenére a Type VII-es személyzetek a háború utolsó napjáig folytatták a harcot, sokszor önfeláldozó körülmények között. A típusból összességében több mint 700 darab készült, így a történelem legnagyobb számban gyártott tengeralattjáró-osztályává vált. Bár a háború végére technológiailag elavult, a Type VII U-boot alakja és története örökre összeforrt a II. világháborús tengeri hadviseléssel.
+                    </p>
+                </div>
+
+                <!-- Technikai leírás -->
+                <div class="theme-box p-6 border rounded-sm font-mono text-sm space-y-2">
+                    <h4 class="font-bold text-base font-sans uppercase tracking-wider mb-3">2. Technikai leírás és specifikációk</h4>
+                    <p><strong>Személyzet:</strong> 44–52 fő (tisztek, altisztek, tengerészek és műszakiak)</p>
+                    <p><strong>Méretek (VII C):</strong> Hosszúság: 67,1 m | Szélesség: 6,2 m | Merülés: 4,74 m</p>
+                    <p><strong>Vízkiszorítás:</strong> Felszínen: 769 tonna | Víz alatt: 871 tonna</p>
+                    <p><strong>Meghajtás:</strong> 2 × 6 hengeres MAN vagy Germaniawerft dízelmotor (felszín) + 2 × villanymotor (víz alatt)</p>
+                    <p><strong>Teljesítmény:</strong> Dízellel: 2800–3200 LE | Villanymotorral: 750 LE</p>
+                    <p><strong>Sebesség:</strong> Felszínen: 17,7 csomó (~33 km/h) | Víz alatt: 7,6 csomó (~14 km/h)</p>
+                    <p><strong>Hatótávolság:</strong> Felszínen: 8500 tengeri mérföld (10 csomóval) | Víz alatt: 80 tengeri mérföld (4 csomóval)</p>
+                    <p><strong>Max. merülési mélység:</strong> Üzemi: 100–120 m | Aknázási/roppanási határ: 220–250 m</p>
+                    <p><strong>Torpedófegyverzet:</strong> 5 × 533 mm-es torpedóvető cső (4 orr-, 1 farokcső) max. 14 torpedóval</p>
+                    <p><strong>Fedélzeti fegyverzet:</strong> 1 × 88 mm-es fedélzeti ágyú és választható 20 mm-es/37 mm-es légvédelmi gépágyúk</p>
+                </div>
+
+                <!-- Kép és Képfelirat -->
+                <figure class="blueprint-frame p-3 theme-box text-center">
+                    <img src="type_vii_u-boot.png" alt="Type VII U-boot" class="w-full h-auto grayscale contrast-125 mx-auto">
+                    <figcaption class="mt-3 text-sm font-mono uppercase tracking-wider theme-text-subtle border-t theme-border-subtle pt-2">
+                        Type VII U-boot
+                    </figcaption>
+                </figure>
+            </article>
+
+            <!-- Yamato-osztályú csatahajó -->
+            <article class="space-y-6 border-b theme-border-subtle pb-12">
+                <h3 class="text-2xl font-serif font-bold uppercase tracking-wide">Yamato-osztályú csatahajó</h3>
+                
+                <div class="space-y-4 leading-relaxed font-serif text-justify">
+                    <h4 class="font-sans font-bold text-sm uppercase tracking-widest theme-text-subtle border-l-2 theme-border-strong pl-3">1. A Yamato-osztály története és hadi alkalmazása</h4>
+                    <p>
+                        A Yamato-osztályú csatahajók – a névadó Yamato és testvérhajója, a Musashi – a haditengerészet történetének legnagyobb, legnehezebb páncélzattal felszerelt és legfejlettebb nehéztüzérségű csatahajói voltak. A Japán Császári Haditengerészet az 1930-as évek közepén döntött az építésükről, mivel felismerték, hogy ipari kapacitásban nem vehetik fel a versenyt az Amerikai Egyesült Államokkal. A stratégiájuk alapja az volt, hogy olyan egyedülálló harci értékű óriáshajókat hozzanak létre, amelyek külön-külön is képesek több ellenséges csatahajó leküzdésére. Az építésüket szigorú titoktartás övezte, így a szövetségesek csak a háború legvégén szereztek pontos információkat a hajók valódi méreteiről és fegyverzetéről. A gigantikus, 460 mm-es főágyúk tervezése és gyártása a korabeli japán nehézipar csúcsteljesítményének számított. Ugyanakkor mire a hajók szolgálatba álltak, a tengeri hadviselés jellege gyökeresen megváltozott, és a csatahajók szerepét átvették a repülőgép-hordozók. Ennek következtében a Yamato-osztály egységei a háború jelentős részében tartalékban álltak, vagy csak korlátozott feladatokat láttak el.
+                    </p>
+                    <p>
+                        A csatahajók végül a háború utolsó szakaszában vették ki részüket a döntő összecsapásokból, ám a nyomasztó szövetséges légi fölény miatt nem tudták kibontakoztatni tűzerejüket. A Musashi 1944 októberében, a Leyte-öbölbeli csata során süllyedt el, miután több tucat amerikai torpedó- és bombatalálat érte. A Yamato 1945 áprilisában indult utolsó, öngyilkos küldetésére Okinava felé a „Ten-Gó” hadművelet keretében, üzemanyaggal csak egy útra feltankolva. A hajóflottillát azonban az amerikai felderítés hamar kiszúrta, és több száz hordozófedélzeti repülőgép zúdított rá megsemmisítő csapást. A Yamato órákon át hősiesen védekezett a folyamatos hullámokban érkező légitámadások ellen, de a számos torpedó- és bombatalálat hatására végül felborult és felrobbant. A Yamato-osztály tragikus sorsa szimbolikusan is jelképezte a csatahajók korszakának végleges lealkonyulását a tengeri hadviselésben.
+                    </p>
+                </div>
+
+                <!-- Technikai leírás -->
+                <div class="theme-box p-6 border rounded-sm font-mono text-sm space-y-2">
+                    <h4 class="font-bold text-base font-sans uppercase tracking-wider mb-3">2. Technikai leírás és specifikációk</h4>
+                    <p><strong>Személyzet:</strong> 2500–3300 fő (tisztek, matrózok, tüzérek és műszaki személyzet)</p>
+                    <p><strong>Méretek:</strong> Hosszúság: 263 m | Szélesség: 38,9 m | Merülés: 10,4 m</p>
+                    <p><strong>Vízkiszorítás:</strong> Standard: 65 000 tonna | Teljes harci: 71 659 tonna</p>
+                    <p><strong>Meghajtás:</strong> 12 × Kampon gőzkazán és 4 × gőzturbina (4 hajócsavarral)</p>
+                    <p><strong>Teljesítmény:</strong> 150 000 lóerő (110 kW)</p>
+                    <p><strong>Sebesség és hatótáv:</strong> Legnagyobb sebesség: 27 csomó (~50 km/h) | Hatótávolság: 7200 tengeri mérföld (16 csomóval)</p>
+                    <p><strong>Fő fegyverzet:</strong> 9 × 460 mm-es (18,1 hüvelykes) L/45 ágyú (3 tripla lövegtoronyban)</p>
+                    <p><strong>Másodlagos fegyverzet:</strong> 12 × 155 mm-es ágyú, 12 × 127 mm-es univerzális ágyú és kiterjedt 25 mm-es légvédelmi gépágyú-rendszer</p>
+                    <p><strong>Páncélzat:</strong> Övpáncél: 410 mm | Fedélzet: 200–230 mm | Fő lövegtornyok előlapja: 650 mm</p>
+                    <p><strong>Repülőgép-felszerelés:</strong> 2 × gőzkatapult és legfeljebb 7 × hidroplán (reconnaissance/felderítés)</p>
+                </div>
+
+                <!-- Kép és Képfelirat -->
+                <figure class="blueprint-frame p-3 theme-box text-center">
+                    <img src="yamato-osztalyu_csatahajo.png" alt="Yamato-osztályú csatahajó" class="w-full h-auto grayscale contrast-125 mx-auto">
+                    <figcaption class="mt-3 text-sm font-mono uppercase tracking-wider theme-text-subtle border-t theme-border-subtle pt-2">
+                        Yamato-osztályú csatahajó
+                    </figcaption>
+                </figure>
+            </article>
+
+            <!-- Type XXI U-boot -->
+            <article class="space-y-6">
+                <h3 class="text-2xl font-serif font-bold uppercase tracking-wide">Type XXI U-boot</h3>
+                
+                <div class="space-y-4 leading-relaxed font-serif text-justify">
+                    <h4 class="font-sans font-bold text-sm uppercase tracking-widest theme-text-subtle border-l-2 theme-border-strong pl-3">1. A Type XXI U-boot története és hadi alkalmazása</h4>
+                    <p>
+                        A Type XXI osztályú elektro-tengeralattjáró a tengeri hadviselés történetének egyik legforradalmibb konstrukciója volt, amely alapjaiban változtatta meg a búvárhajók tervezési filozófiáját. A német Kriegsmarine az atlanti csata elvesztése után határozta el egy olyan típus megépítését, amely képes a víz alatt nagyobb sebességet elérni, mint a felszínen. A korábbi tengeralattjárókkal ellentétben a Type XXI-est elsősorban a víz alatti jelenlétre tervezték, és hidrodinamikailag tökéletesített, áramvonalas hajótestet kapott. A fejlesztés során alkalmazott modularitás lehetővé tette, hogy az egyes szekciókat különálló gyárakban készítsék el, majd a hajógyárakban gyorsan összeállítsák őket. A sorozatgyártás beindítását azonban a szövetségesek folyamatos bombatámadásai és a nyersanyaghiány súlyosan hátráltatta. Bár a háború végéig több mint száz darabot bocsátottak vízre, a szigorú tesztelések és a gyermekbetegségek miatt csak rendkívül kevés egység érte el a harckészültséget. A típus késői megjelenése miatt érdemi befolyást már nem tudott gyakorolni a második világháború kimenetelére.
+                    </p>
+                    <p>
+                        A Type XXI-es harci alkalmazása szinte teljesen elmaradt, ám a technológiai úttörő szerepe felbecsülhetetlennek bizonyult a háború utáni időszakban. A hajóba szerelt hatalmas akkumulátorkapacitás és a továbbfejlesztett Schnorchel-rendszer lehetővé tette, hogy hetekig a víz alatt maradjon az észrevétlenség álcájában. A szövetséges flotta modern radar- és szonárrendszerei szinte tehetetlenek lettek volna a víz alatt rendkívül csendesen és gyorsan mozgó új fenyegetéssel szemben. A háború lezárását követően a győztes hatalmak – az Egyesült Államok, Nagy-Britannia, Franciaország és a Szovjetunió – árgus szemekkel tanulmányozták és zsákmányolták a fennmaradt példányokat. A Type XXI-es közvetlen mintájául szolgált a hidegháborús szovjet és amerikai diessel-elektromos tengeralattjáró-flották kifejlesztéséhez. Így ez a német búvárhajó vált a modern, atommeghajtás előtti tengeralattjárók közvetlen ősévé.
+                    </p>
+                </div>
+
+                <!-- Technikai leírás -->
+                <div class="theme-box p-6 border rounded-sm font-mono text-sm space-y-2">
+                    <h4 class="font-bold text-base font-sans uppercase tracking-wider mb-3">2. Technikai leírás és specifikációk</h4>
+                    <p><strong>Személyzet:</strong> 57 fő (5 tiszt, 52 tengerész és műszaki szakember)</p>
+                    <p><strong>Méretek:</strong> Hosszúság: 76,7 m | Szélesség: 6,6 m | Merülés: 6,2 m</p>
+                    <p><strong>Vízkiszorítás:</strong> Felszínen: 1621 tonna | Víz alatt: 1819 tonna</p>
+                    <p><strong>Meghajtás:</strong> 2 × MAN supercharged dízelmotor + 2 × szuper-csendes villanymotor + 2 × kúszómotor</p>
+                    <p><strong>Teljesítmény:</strong> Dízellel: 4000 LE | Villanymotorral: 5000 LE</p>
+                    <p><strong>Sebesség:</strong> Felszínen: 15,6 csomó (~29 km/h) | Víz alatt: 17,2 csomó (~32 km/h)</p>
+                    <p><strong>Hatótávolság:</strong> Felszínen: 15 500 tengeri mérföld | Víz alatt: 340 tengeri mérföld (5 csomóval)</p>
+                    <p><strong>Max. merülési mélység:</strong> Üzemi: 135 m | Roppanási/tesztelési határ: 280 m</p>
+                    <p><strong>Torpedófegyverzet:</strong> 6 × 533 mm-es orr-torpedóvető cső hidraulikus gyorstöltővel (23 torpedó kapacitás)</p>
+                    <p><strong>Fedélzeti fegyverzet és elektronika:</strong> 4 × 20 mm-es C/38 légvédelmi gépágyú áramvonalas tornyokban, valamint fejlett passzív szonárrendszer</p>
+                </div>
+
+                <!-- Kép és Képfelirat -->
+                <figure class="blueprint-frame p-3 theme-box text-center">
+                    <img src="type_xxi_u-boot.png" alt="Type XXI U-boot" class="w-full h-auto grayscale contrast-125 mx-auto">
+                    <figcaption class="mt-3 text-sm font-mono uppercase tracking-wider theme-text-subtle border-t theme-border-subtle pt-2">
+                        Type XXI U-boot
+                    </figcaption>
+                </figure>
+            </article>
+        </section>
+
+        <!-- 3. SZÁRAZFÖLDI HADVISELÉS -->
+        <section id="szarazfoldi" class="space-y-12 border-t theme-border-subtle pt-12">
+            <div class="border-b theme-border-subtle pb-4">
+                <span class="text-xs font-mono uppercase tracking-widest theme-text-subtle">Fejezet III.</span>
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold uppercase tracking-tight">Szárazföldi páncélosok és tüzérség</h2>
+            </div>
+
+            <!-- Tiger I -->
+            <article class="space-y-6 border-b theme-border-subtle pb-12">
+                <h3 class="text-2xl font-serif font-bold uppercase tracking-wide">Tiger I (Panzerkampfwagen VI)</h3>
+                
+                <div class="space-y-4 leading-relaxed font-serif text-justify">
+                    <h4 class="font-sans font-bold text-sm uppercase tracking-widest theme-text-subtle border-l-2 theme-border-strong pl-3">1. A Tiger I története és hadi alkalmazása</h4>
+                    <p>
+                        A Panzerkampfwagen VI, közismertebb nevén a Tiger I nehézharckocsi a második világháború egyik leglegendásabb és legrettegettebb páncélosa volt, amelyet a német Wehrmacht fejlesztett ki a keleti fronton tapasztalt kihívásokra válaszul. A típus tervezése az 1930-as évek végén indult, de a szovjet T-34-es és KV-1-es harckocsik megjelenése felgyorsította a munkálatokat a Henschel és a Porsche vállalatoknál. Az első sorozatgyártott példányok 1942 augusztusában kerültek le a gyártósorról, és még ugyanezen év őszén átestek a tűzkeresztségen Leningrád közelében. A Tiger I rendkívül vastag, egyenes síkú páncélzattal és a híres, 88 mm-es KwK 36 L/56 ágyúval rendelkezett, amely szinte minden korabeli szövetséges harckocsit képes volt óriási távolságból megsemmisíteni. A német tüzérek precíz optikáiknak köszönhetően akár 2000 méteren túli célpontokat is nagy biztonsággal találtak el. A háború közepén a frontra kerülő nehézharckocsi-osztályok (Schwere Panzer-Abteilung) döntő hatást gyakoroltak a helyi ütközetek kimenetelére mind a keleti, mind a nyugati fronton. Ugyanakkor a gép óriási tömege és összetett szerkezete komoly logisztikai gondokat okozott a mozgósítás során.
+                    </p>
+                    <p>
+                        A Tiger I pszichológiai hatása szinte felülmúlhatatlan volt, és a szövetséges katonák körében elterjedt az úgynevezett „Tigris-félelem” jelensége. A szövetséges páncélosok többsége – mint az amerikai Sherman vagy a szovjet T-34/76 – képtelen volt elölről átütni a gép vastag frontpáncélját, így csak létszámfölényüket kihasználva, oldalról vagy hátulról próbálhatták meg megközelíteni. A nehézharckocsi azonban jelentős technikai problémákkal és megbízhatósági hiányosságokkal küzdött a nagyfokú túlsúlya és a túlterhelt erőátviteli rendszere miatt. A harcmezőn elveszített Tigrisek nagy részét nem az ellenséges tűz semmisítette meg, hanem műszaki meghibásodás vagy az üzemanyag hiánya miatt a saját személyzetük robbantotta fel őket. Az alkatrészhiány és a magas gyártási költségek miatt mindössze 1347 darab készült belőle a gyártás 1944 augusztusi leállításáig. Ennek ellenére a Tiger I a páncélos hadviselés történetének egyik legmeghatározóbb szimbólumává vált.
+                    </p>
+                </div>
+
+                <!-- Technikai leírás -->
+                <div class="theme-box p-6 border rounded-sm font-mono text-sm space-y-2">
+                    <h4 class="font-bold text-base font-sans uppercase tracking-wider mb-3">2. Technikai leírás és specifikációk</h4>
+                    <p><strong>Személyzet:</strong> 5 fő (parancsnok, irányzó, töltő, vezető, rádiós/géppuskás)</p>
+                    <p><strong>Méretek:</strong> Hosszúság (ágyúval): 8,45 m | Szélesség: 3,55 m | Magasság: 3,00 m</p>
+                    <p><strong>Tömegadatok:</strong> Harci tömeg: 57 tonna</p>
+                    <p><strong>Meghajtás:</strong> Maybach HL230 P45 V12-es vízhűtéses benzinmotor (700 LE / 515 kW)</p>
+                    <p><strong>Sebesség:</strong> Legnagyobb sebesség műúton: 38 km/h | Terepen: 20–25 km/h</p>
+                    <p><strong>Hatótávolság:</strong> Műúton: 195 km | Terepen: 110 km</p>
+                    <p><strong>Fő fegyverzet:</strong> 1 × 88 mm-es KwK 36 L/56 gépágyú/harckocsiágyú (92 db lőszerrel)</p>
+                    <p><strong>Kiegészítő fegyverzet:</strong> 2 × 7,92 mm-es MG 34 géppuska (1 a törzsben, 1 az ágyúval párhuzamosítva)</p>
+                    <p><strong>Páncélzat:</strong> Frontpáncél: 100 mm | Oldal- és hátulsó páncél: 80 mm | Lövegtorony előlapja: 120 mm</p>
+                    <p><strong>Különleges jellemzők:</strong> Bonyolult, átfedéses futómű-rendszer (Schachtellaufwerk) és Zeiss TZF 9b optikai irányzék</p>
+                </div>
+
+                <!-- Kép és Képfelirat -->
+                <figure class="blueprint-frame p-3 theme-box text-center">
+                    <img src="tiger_i.png" alt="Tiger I" class="w-full h-auto grayscale contrast-125 mx-auto">
+                    <figcaption class="mt-3 text-sm font-mono uppercase tracking-wider theme-text-subtle border-t theme-border-subtle pt-2">
+                        Tiger I
+                    </figcaption>
+                </figure>
+            </article>
+
+            <!-- T-34 / T-34-85 -->
+            <article class="space-y-6 border-b theme-border-subtle pb-12">
+                <h3 class="text-2xl font-serif font-bold uppercase tracking-wide">T-34 / T-34-85</h3>
+                
+                <div class="space-y-4 leading-relaxed font-serif text-justify">
+                    <h4 class="font-sans font-bold text-sm uppercase tracking-widest theme-text-subtle border-l-2 theme-border-strong pl-3">1. A T-34 története és hadi alkalmazása</h4>
+                    <p>
+                        A szovjet T-34-es közepes harckocsi a második világháború legnagyobb hatású és legsikeresebb páncélosa volt, amely alapjaiban változtatta meg a szárazföldi hadviselés történetét. A gép tervezése Mihail Koskin irányítása alatt indult el a harkovi üzemi tervezőirodában az 1930-as évek végén. Az első sorozatgyártott példányok 1940-ben gördültek le a szalagról, és a Németország által indított Barbarossa hadművelet során érték el a frontvonalakat. A német páncélos alakulatok számára valóságos sokkot jelentett a T-34-es megjelenése, mivel a korabeli német harckocsik és páncéltörő ágyúk szinte tehetetlenek voltak ellenük. A gép zsenialitása a döntött páncélzatban, a rendkívül megbízható V-2-es dízelmotorban és a széles lánctalpak által biztosított kiváló terepjáró képességben rejlett. A háború menetében a szovjet ipar képes volt olyan óriási léptékű tömeggyártásra, amellyel a tengelyhatalmak nem tudtak lépést tartani. A T-34-es így nemcsak egy hatékony harci eszköz, hanem a Vörös Hadsereg és a keleti fronti győzelem legfőbb szimbólumává is vált.
+                    </p>
+                    <p>
+                        A német nehézharckocsik, mint a Tiger és a Panther megjelenése miatt a szovjet mérnökök 1943-ban elhatározták a típus átfogó modernizációját. Ennek eredményeként született meg a T-34-85 változat, amely egy jóval tágasabb, háromfős lövegtornyot és egy erősebb, 85 mm-es ZiS-S-53-as ágyút kapott. Ez a fejlesztés lehetővé tette, hogy a harckocsi a háború végső szakaszában is felvehesse a harcot a legfejlettebb német páncélosokkal szemben. A tágasabb torony emellett jelentősen javította a személyzet munkakörülményeit és az ágyú tűzgyorsaságát is. A T-34-esek döntő szerepet játszottak a kurszki csatában, a Bagratyion hadműveletben, valamint Berlin végső ostromában is. A háború lezárása után a típust számtalan országba exportálták, és még évtizedekig jelen volt a hidegháborús konfliktusokban, mint például a koreai háborúban. A T-34/85 így a világ egyik legtovább szolgáló és legáthatóbb hatású harckocsijaként írta be magát a történelembe.
+                    </p>
+                </div>
+
+                <!-- Technikai leírás -->
+                <div class="theme-box p-6 border rounded-sm font-mono text-sm space-y-2">
+                    <h4 class="font-bold text-base font-sans uppercase tracking-wider mb-3">2. Technikai leírás és specifikációk</h4>
+                    <p><strong>Személyzet:</strong> 4 fő (T-34/76) vagy 5 fő (T-34-85: parancsnok, irányzó, töltő, vezető, rádiós)</p>
+                    <p><strong>Méretek (T-34-85):</strong> Hosszúság (ágyúval): 8,15 m | Szélesség: 3,00 m | Magasság: 2,72 m</p>
+                    <p><strong>Tömegadatok:</strong> Harci tömeg: 26,5 tonna (T-34/76) | 32 tonna (T-34-85)</p>
+                    <p><strong>Meghajtás:</strong> V-2-34 típusú, 12 hengeres, vízhűtéses nép-dízelmotor (500 LE / 370 kW)</p>
+                    <p><strong>Sebesség:</strong> Legnagyobb sebesség műúton: 55 km/h | Terepen: 30 km/h</p>
+                    <p><strong>Hatótávolság:</strong> Műúton: 250–300 km | Póttartályokkal: akár 400 km</p>
+                    <p><strong>Fő fegyverzet:</strong> 76,2 mm-es F-34 ágyú (korai) / 85 mm-es ZiS-S-53 ágyú (T-34-85, 56 db lőszerrel)</p>
+                    <p><strong>Kiegészítő fegyverzet:</strong> 2 × 7,62 mm-es DTM géppuska (1 a törzsben, 1 az ágyúval párhuzamosítva)</p>
+                    <p><strong>Páncélzat:</strong> Frontpáncél: 45 mm (60°-os döntéssel, ami ~90 mm effektív vastagságot adott)</p>
+                    <p><strong>Különleges jellemzők:</strong> Christie-féle felfüggesztési rendszer, széles lánctalpak a sárban való haladáshoz és egyszerű szerkezet</p>
+                </div>
+
+                <!-- Kép és Képfelirat -->
+                <figure class="blueprint-frame p-3 theme-box text-center">
+                    <img src="t-34.png" alt="T-34" class="w-full h-auto grayscale contrast-125 mx-auto">
+                    <figcaption class="mt-3 text-sm font-mono uppercase tracking-wider theme-text-subtle border-t theme-border-subtle pt-2">
+                        T-34
+                    </figcaption>
+                </figure>
+            </article>
+
+            <!-- BM-13 Katyusa -->
+            <article class="space-y-6">
+                <h3 class="text-2xl font-serif font-bold uppercase tracking-wide">BM-13 Katyusa</h3>
+                
+                <div class="space-y-4 leading-relaxed font-serif text-justify">
+                    <h4 class="font-sans font-bold text-sm uppercase tracking-widest theme-text-subtle border-l-2 theme-border-strong pl-3">1. A BM-13 Katyusa története és hadi alkalmazása</h4>
+                    <p>
+                        A BM-13 Katyusa a második világháború legszélesebb körben használt szovjet rakéta-sorozatvetője volt, amely félelmetes hírnevet szerzett magának a keleti fronton. A fegyverrendszer fejlesztése az 1930-as évek végén indult a Szovjetunióban, Georgij Lángemak és más rakétamérnökök úttörő munkájának köszönhetően. Az első éles bevetésre 1941 júliusában került sor Orsa városa mellett, ahol Iwan Fljorov kapitány ütege megsemmisítő csapást mért egy német vasúti csomópontra. A német katonák a rakéták indításakor hallható jellegzetes, sikító hang és a sípszerű süvítés miatt „Sztálinorgonának” nevezzték el a szerkezetet. A szovjet katonák ellenben a népszerű háborús dal nyomán szeretettel csak „Katyusának” becézték a félelmetes fegyvert. A rendszer óriási előnye a rendkívüli mozgékonyságában és az olcsó, gyors gyárthatóságában rejlett a hagyományos tüzérségi lövegekhez képest. Bár az egyedi rakéták pontossága viszonylag alacsony volt, a tömeges indítások során alkalmazott szőnyegbombázás-szerű rombolás megsemmisítő hatást gyakorolt az ellenség állásaira.
+                    </p>
+                    <p>
+                        A Katyusák nemcsak fizikai rombolást végeztek, hanem óriási pszichológiai terrort is gyakoroltak az ellenfél katonáinak moráljára. Egyetlen BM-13-as üteg mindössze néhány másodperc alatt akár 70-80 rakétát is képes volt kilőni, ami tonnányi robbanóanyagot jelentett a megcélzott területre. A rakétaállványokat leggyakrabban teherautókra szerelték, ami lehetővé tette, hogy a tüzelés után az egység perceken belül elhagyja a pozícióját, megelőzve a válaszzónás tüzérségi csapásokat. A háború kezdeti szakaszában még szovjet ZIS-6 teherautókat használtak hordozójárműként, de később a Lend-Lease program keretében érkező amerikai Studebaker US6 kamionok váltak a legelterjedtebb alvázzá. A Katyusák döntő szerepet játszottak a sztálingrádi és a kurszki csatában, valamint a Berlin elleni végső ostromban is. A BM-13 sikerének köszönhetően a rakéta-sorozatvetők a modern szárazföldi tüzérség elengedhetetlen részeivé váltak világszerte.
+                    </p>
+                </div>
+
+                <!-- Technikai leírás -->
+                <div class="theme-box p-6 border rounded-sm font-mono text-sm space-y-2">
+                    <h4 class="font-bold text-base font-sans uppercase tracking-wider mb-3">2. Technikai leírás és specifikációk</h4>
+                    <p><strong>Személyzet:</strong> 5–7 fő (parancsnok, vezető, irányzó és a rakétabetöltők)</p>
+                    <p><strong>Hordozójármű:</strong> ZIS-6, GAZ-AA vagy leggyakrabban Studebaker US6 (6x6-os teherautó)</p>
+                    <p><strong>Indítóállvány:</strong> 8 darab dupla indítósín (RS-132 rakéták hordozására), összesen 16 rakéta kapacitással</p>
+                    <p><strong>Rakéta típusa:</strong> M-13 szilárd hajtóanyagú (puskapor alapú) nem irányított rakéta</p>
+                    <p><strong>Rakéta méretei:</strong> Kaliber: 132 mm | Hosszúság: 1415 mm | Tömeg: 42,5 kg</p>
+                    <p><strong>Harcirész tömege:</strong> 4,9 kg nagy robbanóerejű (HE) repesz-romboló töltet</p>
+                    <p><strong>Tüzelési hatótávolság:</strong> Legnagyobb hatótávolság: kb. 8470 méter</p>
+                    <p><strong>Sorozat ideje:</strong> A teljes 16 rakétás sorozat kilövése mindössze 7–10 másodpercet vett igénybe</p>
+                    <p><strong>Újratöltési idő:</strong> Kézi erővel végzett újratöltés kb. 5–10 percet igényelt a tapasztalt személyzettől</p>
+                    <p><strong>Különleges jellemzők:</strong> Magas mozgékonyság (Shoot-and-Scoot taktika) és borzasztó pszichológiai hatású indítási hang</p>
+                </div>
+
+                <!-- Kép és Képfelirat -->
+                <figure class="blueprint-frame p-3 theme-box text-center">
+                    <img src="bm-13_katyusa.jpg" alt="BM-13 Katyusa" class="w-full h-auto grayscale contrast-125 mx-auto">
+                    <figcaption class="mt-3 text-sm font-mono uppercase tracking-wider theme-text-subtle border-t theme-border-subtle pt-2">
+                        BM-13 Katyusa
+                    </figcaption>
+                </figure>
+            </article>
+        </section>
+
+        <!-- FELHASZNÁLT IRODALOM & FIGYELMEZTETÉS -->
+        <section id="irodalom" class="border-t theme-border-subtle pt-12 space-y-8">
+            <div class="border-b theme-border-subtle pb-4">
+                <h2 class="text-2xl font-serif font-bold uppercase tracking-tight">Felhasznált irodalom</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+                <div class="space-y-3">
+                    <h3 class="font-bold uppercase tracking-wider font-sans border-b theme-border-subtle pb-1">
+                        Történelmi és Hadtudományi Szakirodalom
+                    </h3>
+                    <ol class="list-decimal list-inside space-y-2 font-serif theme-text-subtle">
+                        <li>Beevor, Antony (2012): <em>A második világháború</em>. Gold Book, Debrecen.</li>
+                        <li>Ford, Roger (2000): <em>A Tigris harckocsi</em>. Hajja & Fiai Könyvkiadó, Debrecen.</li>
+                        <li>Hart, Stephen A. (2008): <em>Katyusa és más szovjet rakéta-sorozatvetők 1941–1945</em>. Szukits Könyvkiadó, Szeged.</li>
+                        <li>Keegan, John (2008): <em>A tengeri hadviselés története</em>. Corvina Kiadó, Budapest.</li>
+                        <li>Wood, Tony & Gunston, Bill (2002): <em>A II. világháború német repülőgépei</em>. Alexandra Kiadó, Pécs.</li>
+                    </ol>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="font-bold uppercase tracking-wider font-sans border-b theme-border-subtle pb-1">
+                        Képi forrás és Vizuális Illusztráció
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 font-serif theme-text-subtle">
+                        <li>Generatív AI Illusztráció (2026): Második világháborús lövészárok, katonák és harckocsi sivár tájban. Hozzáférés: A beszélgetés során előállított egyedi, szürkeárnyalatos, A4-es tájolású illusztráció.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Figyelmeztetés az MI használatáról -->
+            <div class="p-4 border theme-border-strong theme-box text-center font-mono text-xs uppercase tracking-widest">
+                FIGYELEM! A dokumentum teljes szövege és a benne lévő képek MI felhasználásával készültek!
+            </div>
+
+            <!-- Borítókép (simán <img> tag használatával) -->
+            <div class="blueprint-frame p-2 theme-box">
+                <img src="borito.jpg" alt="Borítókép" class="w-full h-auto grayscale contrast-125 object-cover">
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Lábléc -->
+    <footer class="border-t theme-border-subtle py-8 text-center text-xs font-mono uppercase tracking-widest theme-text-subtle">
+        <p>&copy; 2026 WWII Military Technology Digital Archive. Minden jog fenntartva.</p>
+    </footer>
+
+    <!-- A kért megbízható JavaScript kód a sötét / világos mód váltására -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            btn.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    btn.textContent = '☀️ Nappali mód';
+                } else {
+                    btn.textContent = '🌙 Éjszakai mód';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
