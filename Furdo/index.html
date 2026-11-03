@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termálország – A magyar fürdőlegendák</title>
+    <style>
+        :root {
+            --primary-color: #1a4b6e;
+            --secondary-color: #2c7a9e;
+            --accent-color: #d4af37;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --light-text: #666666;
+            --border-radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 40px;
+        }
+
+        /* Header / Banner */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 60px 20px 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        header .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--accent-color);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: -30px auto 0;
+            padding: 0 20px;
+        }
+
+        /* Main Section */
+        section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .img-caption {
+            text-align: center;
+            font-style: italic;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+        /* Content Grid / Item Cards */
+        .spa-item {
+            background-color: #fafafa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .spa-item h4 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        /* Bibliography */
+        .bibliography ul {
+            list-style-type: none;
+        }
+
+        .bibliography li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #e0e0e0;
+            font-size: 0.95rem;
+        }
+
+        .bibliography li:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 25pt;
+            font-weight: bold;
+            color: var(--light-text);
+            margin-top: 50px;
+            background-color: #ffffff;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        footer p {
+            margin: 0; /* Eltávolítja a globális p elem margóját */
+            text-align: center; /* Biztosítja a középre igazítást */
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            header .subtitle {
+                font-size: 1.2rem;
+            }
+            section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Termálország</h1>
+        <div class="subtitle">A magyar fürdőlegendák</div>
+    </header>
+
+    <div class="container">
+        <!-- Kezdő kép -->
+        <section>
+            <img src="borito.png" alt="Termálország - Magyar fürdőlegendák">
+            
+            <h2>Fürdőkultúra Magyarországon</h2>
+            <p>Magyarország világszinten is egyedülálló termálvízkészlettel rendelkezik, amelynek köszönhetően a fürdőkultúra a hazai identitás és a mindennapi élet szerves részévé vált az évszázadok során. A Kárpát-medence különleges geológiai adottságai miatt a földkéreg itt lényegesen vékonyabb, mint a kontinens más területein, így a forró, ásványi anyagokban gazdag vizek sokkal könnyebben törnek utat maguknak a felszín felé. Ez a bőség már a történelem előtti időkben is vonzotta az embert, ám a szervezett és tudatos fürdőélet alapjait az első nagy civilizációk fektették le ezen a tájon. A természet adta kincs kiaknázása folyamatos fejlődést mutatott, és a különböző hódító kultúrák mind hozzáadták a maguk szokásait a helyi hagyományokhoz. Így alakult ki az a sokszínű és gazdag örökség, amely ma is fémjelzi Magyarországot, mint a fürdők világviszonylatban is elismert fellegvárát.</p>
+            
+            <p>A szervezett magyarországi fürdőkultúra első virágkora a Római Birodalom idejére, Pannónia provincia megalapításának időszakára datálható. A rómaik híresek voltak a víz iránti rajongásukról, és ahol melegvizű forrást találtak, ott azonnal kiépítették a maguk monumentális közfürdőit, a thermákat. Aquincum, a mai Óbuda területe, a birodalom egyik kiemelkedő fürdőközpontjává vált, ahol a katonai és a polgári lakosság egyaránt élvezhette a feltörő források jótékony hatásait. A régészeti ásatások a mai napig tanúskodnak a kifinomult padlófűtési rendszerekről, a mozaikpadlókról és a többmedencés fürdőházakról, amelyek a társasági élet központjaiként is funkcionáltak. A rómaiak nemcsak a tisztálkodás vagy a szórakozás eszközét látták a termálvízben, hanem tudatosan alkalmazták azt különböző betegségek gyógyítására és a katonák rehabilitációjára is.</p>
+            
+            <p>A középkor átmeneti visszaesése után a következő meghatározó és máig látható mérföldkövet a 16–17. századi török hódoltság időszaka jelentette. Az Oszmán Birodalom hódítói számára a fürdés nem csupán higiéniai kérdés, hanem a muszlim vallási rituálék, a rituális tisztálkodás elengedhetetlen része volt. Budapesten, Egerben és más megszállt városokban csodálatos, kupolás ilidzsákat és kaplidzsákat építettek közvetlenül a meleg forrásokra, amelyek közül több a mai napig működik. Ezek az épületek a keleti építészet remekművei voltak a maguk nyolcszögletű medencéivel, színes mozaikjaival és a misztikus fényt árasztó, lyukacsos kupoláikkal. A törökök meghonisították a gőzfürdőzést és a masszázskultúrát is, amely mély nyomot hagyott a magyar lakosság szokásaiban, és átmentette a fürdők szeretetét a későbbi korokra.</p>
+            
+            <p>A modern, ma is ismert magyarországi fürdőélet és a tudományos balneoterápia a 19. században, a reformkorban és a Monarchia idején indult igazi virágzásnak. Ekkor fedezték fel újra a vidéki források erejét, és a hazai arisztokrácia körében divattá vált a gyógyfürdők látogatása, ami a társasági élet csomópontjává tette ezeket a helyszíneket. A századfordulón végzett nagyszabású fúrások, mint például Zsigmondy Vilmos munkássága a Városligetben, elképesztő mélységekből hoztak a felszínre addig elérhetetlen, rendkívül forró gyógyvizeket. Erre az időszakra tehető az olyan grandiózus neobarokk és szecessziós paloták felépítése, mint a Széchenyi vagy a Gellért fürdő, amelyek a luxust ötvözték a gyógyászattal. A két világháború között Budapest hivatalosan is elnyerte a „fürdőváros” címet, lefektetve az alapjait annak a modern, wellness- és gyógyturizmusnak, amely ma is milliókat vonz az országba.</p>
+
+            <img src="furdo.png" alt="A kikapcsolódás élménye">
+        </section>
+
+        <!-- Fürdőtípusok és helyszínek -->
+        <section>
+            <h2>A kikapcsolódás élménye</h2>
+
+            <h3>Történelmi és török fürdők</h3>
+            
+            <div class="spa-item">
+                <h4>Rudas gyógyfürdő (Budapest)</h4>
+                <img src="rudas.png" alt="Rudas gyógyfürdő - Budapest">
+                <p class="img-caption">Rudas gyógyfürdő - Budapest</p>
+                <p>Magva a török hódoltság idejéből, az 1560-as évekből származik, amikor Szokoli Musztafa pasa átépíttette. Ikonikus, nyolcszögletű medencéjével és a felette magasodó félgömb alakú török kupolájával a mai napig hűen őrzi az autentikus keleti hangulatot. Az épület az évszázadok során folyamatosan bővült, így ma már a modern wellness elemei is megtalálhatók benne. Legkülönlegesebb része a tetőteraszon kialakított panorámamedence, ahonnan lenyűgöző kilátás nyílik a Dunára és a budapesti hidakra. A fürdő vize radonos gyógyvíz, amely kiválóan alkalmas a mozgásszervi panaszok enyhítésére. A hagyományok megőrzéseként a hét bizonyos napjain továbbra is tartanak kizárólagos férfi, illetve női kötényes fürdőnapokat.</p>
+            </div>
+
+            <div class="spa-item">
+                <h4>Széchenyi gyógyfürdő (Budapest)</h4>
+                <p>Európa egyik legnagyobb és legimpozánsabb fürdőkomplexuma, amely neobarokk stílusban épült a 20. század elején a Városligetben. Az épület sárga falai és grandiózus kupolái Budapest egyik legfontosabb szimbólumává tették a külföldi turisták körében is. Világhírű a hatalmas szabadtéri, gőzölgő medencéiről, amelyekben a helyi törzsvendégek télen-nyáron sakkoznak a vízben ülve. A medencék ellátásáról Budapest második legmélyebb fúrt kútja gondoskodik, amelyből 74 Celsius-fokos termálvíz tör a felszínre. A komplexum összesen 21 medencével rendelkezik, amelyek között gyógy-, élmény- és úszómedencék egyaránt megtalálhatók. Éjszakai fürdőzései és nyári medencés bulijai, az úgynevezett „Sparty”-k miatt a fiatalabb korosztály körében is rendkívül népszerű.</p>
+            </div>
+
+            <div class="spa-item">
+                <h4>Egri Török Fürdő (Eger)</h4>
+                <p>A történelmi fürdőt Arnaut pasa építtette a 17. század elején a török hódoltság idején, és a mai napig az egyik legértékesebb ilyen jellegű emlékünk. Az épület belső terét egy lenyűgöző, kétszázezer darabból álló aranyozott mozaikkupola fedi, amely misztikus hangulatot áraszt. Különlegessége, hogy a nagymedence alját borító radonos gyógyvíz közvetlenül a lábunk alatt, a kövek között tör fel a mélyből. Ez a fajta radon tartalmú víz gyulladáscsökkentő hatású, és fokozza a szervezet endorphin-termelését is. A török fürdőkultúra alapját képező tradicionális hamam masszázsokat és gőzfürdőket a látogatók a mai napig kipróbálhatják itt. A fürdő közvetlen összeköttetésben áll a szomszédos Egri Termálfürdővel, így a történelmi és a modern élmények könnyen kombinálhatók.</p>
+                <img src="eger.png" alt="Török fürdő - Eger">
+                <p class="img-caption">Török fürdő - Eger</p>
+            </div>
+
+            <h3>Gyógyfürdők</h3>
+
+            <div class="spa-item">
+                <h4>Hévízi Tófürdő (Hévíz)</h4>
+                <img src="heviz.png" alt="Hévízi Tófürdő - Hévíz">
+                <p class="img-caption">Hévízi Tófürdő - Hévíz</p>
+                <p>Ez a csodálatos természeti képződmény a világ legnagyobb biológiailag aktív, természetes tőzegmedrű gyógytava. A tó vizét egy 38 méter mélyen fekvő forrásbarlang táplálja, amely olyan bőséges, hogy a teljes vízkészlet 72 órán belül teljesen kicserélődik. A víz hőmérséklete télen sem csökken 24 fok alá, így az év minden napján alkalmas a szabadtéri fürdőzésre. Egyedülálló összetételű vize és a tó felett lebegő vastag páraréteg rendkívül hatásos a krónikus mozgásszervi és reumatológiai panaszokra. A víz felszínén úszó pompás indiai vörös tündérrózsák a fürdő védjegyévé váltak, és csodás látványt nyújtanak. A tó környezetében kiépült professzionális kórház és terápiás centrum a balneoterápiás kezelések teljes palettáját kínálja a betegeknek.</p>
+            </div>
+
+            <div class="spa-item">
+                <h4>Harkányi Gyógy- és Strandfürdő (Harkány)</h4>
+                <p>A Baranya vármegyei fürdő története közel kétszáz évre nyúlik vissza, amikor az első forrásokat felfedezték a mocsaras területen. Különleges, rendkívül magas kéntartalmú gyógyvízzel büszkélkedhet, amely a világon is ritkaságnak számít a sűrűsége és felszívódási sebessége miatt. A vízben található karbonil-szulfid bizonyítottan kiváló hatású a kopásos ízületi betegségek és a csontritkulás kezelésére. Emellett a harkányi víz a pikkelysömör (psoriasis) tüneteinek enyhítésében is nemzetközileg elismert eredményeket ér el. A hatalmas, ősfás parkban elterülő komplexum nemcsak gyógyulást, hanem nyári strandolási lehetőséget is biztosít. A modern gyógyászati részlegen szakképzett orvosok irányításával zajlanak a szénsavfürdős és iszappakolásos kezelések.</p>
+            </div>
+
+            <div class="spa-item">
+                <h4>Bükfürdő Thermal & Spa (Bükfürdő)</h4>
+                <p>Magyarország második legnagyobb fürdője az osztrák határ közelében fekszik, és az 1950-es években egy olajfúrás során bukkantak a termálvízre. Az itt feltörő víz ásványianyag-tartalma rendkívül magas, literenként meghaladja a 15 000 milligrammot, ami egyedülálló koncentrációt jelent. Főként szénsavas, kalciumos és vasas összetételű, ezért kiválóan alkalmas meszesedések, porckopások és csontritkulás kezelésére. A fürdőben ivókúra formájában is alkalmazzák a vizet, ami krónikus gyomorhurut és emésztési problémák esetén nyújt segítséget. A hatalmas területen elhelyezkedő komplexum több mint harminc medencével és egy modern szaunavilággal várja a vendégeket. A gyógyulni vágyók mellett a rekreációs céllal érkező turisták igényeit is maximálisan kiszolgálja az intézmény.</p>
+                <img src="bukfurdo.jpg" alt="Bükfürdő - látkép">
+                <p class="img-caption">Bükfürdő - látkép</p>
+            </div>
+
+            <h3>Élmény- és wellnessfürdők</h3>
+
+            <div class="spa-item">
+                <h4>Hungarospa / Aqua-Palace (Hajdúszoboszló)</h4>
+                <img src="hajduszoboszlo.png" alt="Aqua-Palace - Hajdúszoboszló">
+                <p class="img-caption">Aqua-Palace - Hajdúszoboszló</p>
+                <p>Ez a gigantikus létesítmény büszkén viseli Európa legnagyobb fürdőkomplexuma címet, amely egy valóságos fürdővárost alkot az Alföldön. A hatalmas szabadtéri strandterület mellett egy 15 000 négyzetméteres fedett élményfürdő, az Aqua-Palace várja a családokat az év minden napján. A beltéri részlegen olyan különleges tematikus medencék kaptak helyet, mint a jégbarlang-medence, a mozi-medence vagy a római fürdő. Az adrenalin szerelmeseinek egy extrém csúszdapark áll a rendelkezésére, ahol óriási szabadesés-csúszdák is találhatók. A legkisebbek részére külön bébi- és gyermekvilágot alakítottak ki, ahol biztonságos, sekély vízben játszhatnak. A komplexum méretei és sokszínűsége miatt akár több napot is el lehet tölteni itt unatkozás nélkül.</p>
+            </div>
+
+            <div class="spa-item">
+                <h4>Aquaworld Resort (Budapest)</h4>
+                <p>Közép-Európa egyik legnagyobb fedett vízi élményparkja Budapest északi részén, közvetlenül az M0-s körgyűrű mellett található. A fürdőt egy gigantikus, 72 méter átmérőjű, kupola borítja, amelyet az indonéziai Angkor-romtemplom monumentális építészeti stílusa ihletett. A trópusi hangulatú belső térben 11 hatalmas csúszda található, amelyek összhossza eléri az egy kilométert. A bátrabb látogatók kipróbálhatják a beltéri szörfmedencét, míg a pihenni vágyókat sodrófolyosók és ugrómedencék várják. A szaunabarátok számára egy hatalmas, szaunaszeánszoknak helyet adó exkluzív szaunavilág biztosítja a relaxációt. A fürdőhöz közvetlenül kapcsolódik egy négycsillagos wellness szálloda is, így ideális helyszín családi hétvégékre.</p>
+            </div>
+
+            <div class="spa-item">
+                <h4>Zalakarosi Fürdő (Zalakaros)</h4>
+                <p>A dél-dunántúli régió egyik legnépszerűbb családi célpontja, amely kifejezetten a többgenerációs pihenésre helyezi a hangsúlyt. A beltéri és kültéri gyermekvilágában több mint hatvanféle vízi attrakció, többek között vízi ágyúk, kötélhidak és kalandmedencék találhatók. A hullámmedence és a fekete lyuk csúszda a nagyobb gyerekek és a felnőttek számára is izgalmas kikapcsolódást nyújt. A családbarát filozófia részeként a pihenőtereket úgy alakították ki, hogy a kisgyermekes szülők kényelmesen tudják ellátni a babákat. Az élményelemek mellett a fürdő rendelkezik saját gyógyvizes szárnnyal is, így a nagyszülők is megtalálják a számukra megfelelő pihenést. Az utóbbi évek fejlesztéseinek köszönhetően egy vadonatúj, prémium szaunavilággal is bővült a komplexum kínálata.</p>
+                <img src="zalakaros.png" alt="Zalakaros - városkép">
+                <p class="img-caption">Zalakaros - városkép</p>
+            </div>
+        </section>
+
+        <!-- Irodalomjegyzék -->
+        <section class="bibliography">
+            <h2>Felhasznált irodalom</h2>
+            <ul>
+                <li>Bender Tamás (2012): <em>Gyógyfürdőzés és egyéb balneoterápiás eljárások</em>. Medicina Könyvkiadó, Budapest.</li>
+                <li>Farkas József (2007): <em>Magyarország híres gyógyfürdői és termálvizei</em>. Tóth Könyvkereskedés és Kiadó, Debrecen.</li>
+                <li>Kósa László (1999): <em>Fürdőélet a Monarchiában – A polgári társasági élet és pihenés kultúrája</em>. Holnap Kiadó, Budapest.</li>
+                <li>Meszkó Ilona (2003): <em>Budapest fürdőinek története</em>. Budapest Főváros Levéltára, Budapest.</li>
+                <li>Sudár Balázs (2004): <em>Török fürdők a hódoltsági Magyarországon</em>. Balassi Kiadó, Budapest.</li>
+                <li>Zsigmondy Vilmos (1878): <em>A budapesti artézi kút fúrása</em>. Magyar Mérnök- és Építész-Egylet Közlönye, Budapest.</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>A teljes dokumentum MI felhasználásával készült!</p>
+    </footer>
+
+</body>
+</html>
