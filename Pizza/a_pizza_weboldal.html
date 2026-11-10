@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A PIZZA - Történet, Összetevők és Elkészítés</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           RESET & BASIC SETUP
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Pure CSS Radio Theme Switcher Trigger inputs */
+        .theme-radio {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* ==========================================================================
+           PURE CSS THEMES (Piros, Fehér, Zöld)
+           ========================================================================== */
+        
+        /* 1. PIROS STÍLUS (Alapértelmezett / Red Theme) */
+        #theme-red:checked ~ .page-wrapper {
+            --bg-main: #fdf8f5;
+            --bg-card: #ffffff;
+            --bg-nav: rgba(192, 57, 43, 0.96);
+            --nav-text: #ffffff;
+            --text-main: #2c1a17;
+            --text-muted: #6e5450;
+            --primary: #c0392b;
+            --primary-hover: #962d22;
+            --primary-light: #fbeee9;
+            --border-color: #f1d5ce;
+            --accent-glow: rgba(192, 57, 43, 0.15);
+            --hero-bg: linear-gradient(135deg, #c0392b 0%, #d35400 100%);
+            --flag-accent: #c0392b;
+            --badge-bg: #fbeee9;
+            --badge-text: #c0392b;
+        }
+
+        /* 2. FEHÉR STÍLUS (White / Minimalist Slate Theme) */
+        #theme-white:checked ~ .page-wrapper {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-nav: rgba(255, 255, 255, 0.96);
+            --nav-text: #0f172a;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #1e293b;
+            --primary-hover: #020617;
+            --primary-light: #f1f5f9;
+            --border-color: #e2e8f0;
+            --accent-glow: rgba(15, 23, 42, 0.08);
+            --hero-bg: linear-gradient(135deg, #334155 0%, #0f172a 100%);
+            --flag-accent: #64748b;
+            --badge-bg: #f1f5f9;
+            --badge-text: #0f172a;
+        }
+
+        /* 3. ZÖLD STÍLUS (Green Theme) */
+        #theme-green:checked ~ .page-wrapper {
+            --bg-main: #f3f8f4;
+            --bg-card: #ffffff;
+            --bg-nav: rgba(39, 174, 96, 0.96);
+            --nav-text: #ffffff;
+            --text-main: #142a1b;
+            --text-muted: #4a6853;
+            --primary: #27ae60;
+            --primary-hover: #1e8449;
+            --primary-light: #eafaf1;
+            --border-color: #c8e6d2;
+            --accent-glow: rgba(39, 174, 96, 0.15);
+            --hero-bg: linear-gradient(135deg, #27ae60 0%, #16a085 100%);
+            --flag-accent: #27ae60;
+            --badge-bg: #eafaf1;
+            --badge-text: #1e8449;
+        }
+
+        /* Active theme button styling */
+        #theme-red:checked ~ .page-wrapper .lbl-red {
+            background-color: #ffffff;
+            color: #c0392b;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        #theme-white:checked ~ .page-wrapper .lbl-white {
+            background-color: #0f172a;
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        #theme-green:checked ~ .page-wrapper .lbl-green {
+            background-color: #ffffff;
+            color: #27ae60;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ==========================================================================
+           LAYOUT & CONTAINER STRUCTURE
+           ========================================================================== */
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ==========================================================================
+           STICKY HEADER & NAV BAR
+           ========================================================================== */
+        .top-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-nav);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            transition: background-color 0.4s ease;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 0;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: var(--nav-text);
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-logo span.icon {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            opacity: 0.9;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            transform: translateY(-1px);
+        }
+
+        /* Theme Selector Buttons Container */
+        .theme-selector {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.08);
+            padding: 4px;
+            border-radius: 50px;
+            gap: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-selector-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--nav-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0 8px;
+        }
+
+        .theme-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--nav-text);
+            transition: all 0.25s ease;
+            user-select: none;
+            border: 1px solid transparent;
+        }
+
+        .theme-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .dot-red { background-color: #e74c3c; }
+        .dot-white { background-color: #ffffff; }
+        .dot-green { background-color: #2ecc71; }
+
+        /* ==========================================================================
+           HERO SECTION
+           ========================================================================== */
+        .hero {
+            padding: 4rem 0 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3.5rem 2rem 2.5rem;
+            box-shadow: 0 20px 40px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .hero-flag-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, #c0392b 33.3%, #ffffff 33.3%, #ffffff 66.6%, #27ae60 66.6%);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 0.8rem;
+            transition: color 0.4s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .hero-img-wrapper {
+            position: relative;
+            width: 100%;
+            max-height: 480px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            max-height: 480px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-img-wrapper:hover .hero-img {
+            transform: scale(1.02);
+        }
+
+        /* ==========================================================================
+           TARTALOMJEGYZÉK (TABLE OF CONTENTS)
+           ========================================================================== */
+        .toc-section {
+            margin: 2.5rem 0 3.5rem;
+        }
+
+        .toc-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px var(--accent-glow);
+            transition: all 0.4s ease;
+        }
+
+        .toc-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .toc-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .toc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toc-item {
+            font-size: 1.05rem;
+        }
+
+        .toc-item.main-item {
+            font-weight: 700;
+            margin-top: 0.5rem;
+        }
+
+        .toc-item.sub-item {
+            font-weight: 500;
+            padding-left: 1.8rem;
+        }
+
+        .toc-link {
+            color: var(--text-main);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .toc-link:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .toc-dots {
+            flex: 1;
+            border-bottom: 2px dotted var(--border-color);
+            margin: 0 12px;
+            height: 1em;
+        }
+
+        .toc-page {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           MAIN CONTENT SECTIONS & CARDS
+           ========================================================================== */
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            padding: 2.8rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px var(--accent-glow);
+            transition: all 0.4s ease;
+        }
+
+        .section-header {
+            margin-bottom: 1.8rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            transition: color 0.4s ease;
+        }
+
+        .subsection-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 2.2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: color 0.4s ease;
+        }
+
+        .subsection-badge {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        p {
+            color: var(--text-main);
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Figure and Image Formatting */
+        figure.content-figure {
+            margin: 2rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--primary-light);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        figure.content-figure img {
+            width: 100%;
+            height: auto;
+            max-height: 460px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        figure.content-figure:hover img {
+            transform: scale(1.015);
+        }
+
+        figcaption {
+            padding: 0.85rem 1.2rem;
+            text-align: center;
+            font-size: 0.92rem;
+            font-style: italic;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           BIBLIOGRAPHY (FELHASZNÁLT IRODALOM)
+           ========================================================================== */
+        .bibliography-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            padding: 2.8rem;
+            box-shadow: 0 10px 30px var(--accent-glow);
+            margin-bottom: 3rem;
+            transition: all 0.4s ease;
+        }
+
+        .biblio-list {
+            padding-left: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .biblio-list li {
+            color: var(--text-main);
+            font-size: 0.98rem;
+            padding-left: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .biblio-list li::marker {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* ==========================================================================
+           DISCLAIMER & FOOTER
+           ========================================================================== */
+        .ai-disclaimer {
+            background: var(--primary);
+            color: #ffffff;
+            text-align: center;
+            padding: 1.2rem 1.5rem;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 20px var(--accent-glow);
+            letter-spacing: 0.2px;
+            transition: background-color 0.4s ease;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN (MOBILE & TABLET)
+           ========================================================================== */
+        @media (max-width: 868px) {
+            .nav-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .brand-logo {
+                justify-content: center;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .theme-selector {
+                justify-content: center;
+                margin-top: 0.3rem;
+            }
+
+            .section-card, .toc-card, .bibliography-card {
+                padding: 1.8rem 1.4rem;
+            }
+
+            p {
+                text-align: left;
+            }
+
+            .toc-item.sub-item {
+                padding-left: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pure CSS Theme Switching Radio Controls (Hidden) -->
+    <input type="radio" id="theme-red" name="theme-option" class="theme-radio" checked>
+    <input type="radio" id="theme-white" name="theme-option" class="theme-radio">
+    <input type="radio" id="theme-green" name="theme-option" class="theme-radio">
+
+    <!-- Entire Website Container -->
+    <div class="page-wrapper">
+
+        <!-- Sticky Header Navigation with Theme Switcher Controls -->
+        <header class="top-navbar">
+            <div class="container nav-content">
+                <a href="#" class="brand-logo">
+                    <span class="icon">🍕</span>
+                    <span>A PIZZA</span>
+                </a>
+
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#tartalom">Tartalomjegyzék</a></li>
+                        <li><a href="#tortenet">Története</a></li>
+                        <li><a href="#osszetevok">Összetevői</a></li>
+                        <li><a href="#irodalom">Irodalom</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Pure CSS Color Theme Selector Controls -->
+                <div class="theme-selector" title="Válassz színstílust!">
+                    <span class="theme-selector-label">Stílus:</span>
+                    <label for="theme-red" class="theme-btn lbl-red">
+                        <span class="color-dot dot-red"></span> Piros
+                    </label>
+                    <label for="theme-white" class="theme-btn lbl-white">
+                        <span class="color-dot dot-white"></span> Fehér
+                    </label>
+                    <label for="theme-green" class="theme-btn lbl-green">
+                        <span class="color-dot dot-green"></span> Zöld
+                    </label>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Body -->
+        <main class="container">
+
+            <!-- Hero & Title Section -->
+            <section class="hero">
+                <div class="hero-card">
+                    <div class="hero-flag-bar"></div>
+                    <h1 class="hero-title">A PIZZA</h1>
+                    <p class="hero-subtitle"></p>
+
+                    <!-- Borító Kép -->
+                    <div class="hero-img-wrapper">
+                        <img src="borito.jpg" 
+                             alt="A Pizza borítókép - Friss nápolyi pizza" 
+                             class="hero-img"
+                             onerror="this.onerror=null; this.src='https://placehold.co/1200x600/c0392b/ffffff?text=A+PIZZA+Borito+Kep';">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tartalomjegyzék Section -->
+            <section id="tartalom" class="toc-section">
+                <div class="toc-card">
+                    <div class="toc-header">
+                        <span style="font-size: 1.8rem;">📜</span>
+                        <h2 class="toc-title">Tartalomjegyzék</h2>
+                    </div>
+                    <ul class="toc-list">
+                        <li class="toc-item main-item">
+                            <a href="#tortenet" class="toc-link">
+                                <span>1. A pizza története és kialakulása</span>
+                            </a>
+                        </li>
+                        <li class="toc-item sub-item">
+                            <a href="#eredet" class="toc-link">
+                                <span>1.1. A pizza eredete</span>
+                            </a>
+                        </li>
+                        <li class="toc-item sub-item">
+                            <a href="#elterjedes" class="toc-link">
+                                <span>1.2. A pizza elterjedése és népszerűsége</span>
+                            </a>
+                        </li>
+                        <li class="toc-item main-item">
+                            <a href="#osszetevok" class="toc-link">
+                                <span>2. A pizza összetevői és elkészítése</span>
+                            </a>
+                        </li>
+                        <li class="toc-item sub-item">
+                            <a href="#alapanyagok" class="toc-link">
+                                <span>2.1. A pizza legfontosabb alapanyagai</span>
+                            </a>
+                        </li>
+                        <li class="toc-item sub-item">
+                            <a href="#folyamat" class="toc-link">
+                                <span>2.2. A pizza elkészítésének folyamata</span>
+                            </a>
+                        </li>
+                        <li class="toc-item main-item">
+                            <a href="#irodalom" class="toc-link">
+                                <span>Felhasznált irodalom</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 1. Fejezet: A pizza története és kialakulása -->
+            <section id="tortenet" class="content-section">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">1. A pizza története és kialakulása</h2>
+                    </div>
+
+                    <!-- 1.1 Alfejezet -->
+                    <div id="eredet">
+                        <h3 class="subsection-title">
+                            <span class="subsection-badge">1.1</span>
+                            A pizza eredete
+                        </h3>
+                        <p>
+                            A pizza az egyik legismertebb és legkedveltebb étel a világon. Eredete egészen az ókorig nyúlik vissza, amikor az emberek különböző feltétekkel ízesített lepénykenyereket készítettek. Az ókori görögök és rómaiak is fogyasztottak hasonló ételeket. Ezek azonban még nem hasonlítottak teljesen a mai pizzára.
+                        </p>
+                        <p>
+                            A modern pizza Olaszországból, pontosabban Nápoly városából származik. A 18–19. században a nápolyi szegényebb rétegek körében vált népszerűvé. Egyszerű alapanyagokból, például lisztből, vízből, paradicsomból és sajtból készítették. Olcsó és laktató étel volt, amely hamar sok ember kedvencévé vált.
+                        </p>
+                        <p>
+                            A pizza idővel Olaszország határain kívül is ismertté vált. Az olasz bevándorlók más országokba, különösen az Egyesült Államokba is magukkal vitték a receptjeiket. A 20. században egyre több pizzéria nyílt világszerte. Napjainkban a pizza a nemzetközi gasztronómia egyik legismertebb étele.
+                        </p>
+
+                        <!-- Image 1.1 -->
+                        <figure class="content-figure">
+                            <img src="tortenet.png" 
+                                 alt="A pizza eredete" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/900x500/c0392b/ffffff?text=A+pizza+eredete';">
+                            <figcaption>A pizza eredete</figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- 1.2 Alfejezet -->
+                    <div id="elterjedes" style="margin-top: 3rem;">
+                        <h3 class="subsection-title">
+                            <span class="subsection-badge">1.2</span>
+                            A pizza elterjedése és népszerűsége
+                        </h3>
+                        <p>
+                            A pizza népszerűsége elsősorban az egyszerű elkészítésének és változatosságának köszönhető. Szinte mindenki megtalálhatja a saját ízlésének megfelelő változatot. Készülhet vékony vagy vastag tésztával, különböző sajtokkal és sokféle feltéttel. Ez teszi különlegessé és sokoldalúvá.
+                        </p>
+                        <p>
+                            A világ különböző országaiban eltérő pizzakészítési szokások alakultak ki. Olaszországban gyakran a vékony, ropogós vagy puha tésztájú változatokat részesítik előnyben. Az Egyesült Államokban a vastagabb tésztájú, gazdagon megrakott pizzák is nagyon népszerűek. Más országokban helyi alapanyagokkal és különleges ízekkel gazdagítják ezt az ételt.
+                        </p>
+                        <p>
+                            A technológia fejlődésével a pizza rendelése is sokkal egyszerűbbé vált. Ma már telefonon és interneten keresztül is könnyedén rendelhetünk. Számos étterem kínál házhoz szállítást, így otthonunkban is élvezhetjük a frissen készült pizzát. A pizza népszerűsége napjainkban is töretlen.
+                        </p>
+
+                        <!-- Image 1.2 -->
+                        <figure class="content-figure">
+                            <img src="elterjedes.jpg" 
+                                 alt="A pizza elterjedése" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/900x500/27ae60/ffffff?text=A+pizza+elterjedese';">
+                            <figcaption>A pizza elterjedése</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Fejezet: A pizza összetevői és elkészítése -->
+            <section id="osszetevok" class="content-section">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">2. A pizza összetevői és elkészítése</h2>
+                    </div>
+
+                    <!-- 2.1 Alfejezet -->
+                    <div id="alapanyagok">
+                        <h3 class="subsection-title">
+                            <span class="subsection-badge">2.1</span>
+                            A pizza legfontosabb alapanyagai
+                        </h3>
+                        <p>
+                            A pizza egyik legfontosabb összetevője a tészta. Elkészítéséhez általában lisztre, vízre, élesztőre, sóra és kevés olívaolajra van szükség. A megfelelő tészta elkészítése időt és odafigyelést igényel. A kelesztés során a tészta megemelkedik, és sütés után kellemes állagú lesz.
+                        </p>
+                        <p>
+                            A másik fontos összetevő a paradicsomszósz és a sajt. A paradicsomszósz különleges ízt és nedvességet ad a pizzának. A leggyakrabban használt sajt a mozzarella, amely sütés közben szépen megolvad. Ezek az alapanyagok együtt adják a hagyományos pizza jellegzetes ízét.
+                        </p>
+                        <p>
+                            A feltétek választéka szinte végtelen. Gyakori feltét a sonka, a szalámi, a gomba, a kukorica, az olívabogyó és a paprika. Vannak vegetáriánus és húsos változatok is. A különböző alapanyagok kombinálásával mindenki elkészítheti a számára legfinomabb pizzát.
+                        </p>
+
+                        <!-- Image 2.1 -->
+                        <figure class="content-figure">
+                            <img src="alapanyag.jpg" 
+                                 alt="A pizza alapanyagai" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/900x500/d35400/ffffff?text=A+pizza+alapanyagai';">
+                            <figcaption>A pizza alapanyagai</figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- 2.2 Alfejezet -->
+                    <div id="folyamat" style="margin-top: 3rem;">
+                        <h3 class="subsection-title">
+                            <span class="subsection-badge">2.2</span>
+                            A pizza elkészítésének folyamata
+                        </h3>
+                        <p>
+                            A pizza elkészítése első lépésként a tészta összeállításával kezdődik. A hozzávalókat alaposan összekeverjük, majd addig dagasztjuk, amíg sima és rugalmas állagú nem lesz. Ezután a tésztát meleg helyen pihentetjük, hogy megfelelően megkeljen. A kelesztési idő általában egy-két óra, de a recepttől függően változhat.
+                        </p>
+                        <p>
+                            A megkelt tésztát kinyújtjuk, majd egyenletesen eloszlatjuk rajta a paradicsomszószt. Ezután következik a sajt és a kiválasztott feltétek hozzáadása. Fontos, hogy ne tegyünk túl sok feltétet a pizzára, mert az megnehezítheti az egyenletes átsülést. A megfelelő mennyiségű alapanyag segít abban, hogy a pizza ízletes és jól átsült legyen.
+                        </p>
+                        <p>
+                            Az utolsó lépés a pizza megsütése. A pizzát előmelegített, magas hőmérsékletű sütőben készítjük el. A sütési idő a tészta vastagságától és a sütő teljesítményétől függ. Amikor a tészta széle aranybarnára sül, a sajt pedig megolvad, a pizza általában elkészült. Tálalás előtt érdemes néhány percig pihentetni, majd szeletekre vágva fogyaszthatjuk.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Felhasznált Irodalom Section -->
+            <section id="irodalom" class="content-section">
+                <div class="bibliography-card">
+                    <div class="section-header">
+                        <h2 class="section-title">Felhasznált irodalom</h2>
+                    </div>
+                    <ol class="biblio-list">
+                        <li>Bardi, Carla (2017): Olasz konyha – Pizzák, tészták, rizottók és desszertek. Budapest: Kossuth Kiadó.</li>
+                        <li>Beke Csilla (szerk., 2012): Pizza – A legjobb receptek (ford. Markwarth Zsófia). Budapest: Art Nouveau Kiadó.</li>
+                        <li>Carluccio, Antonio – Contaldo, Gennaro (2012): A két falánk olasz. Pécs: Alexandra Kiadó.</li>
+                        <li>Contaldo, Gennaro (2021): Pasta Perfetto! – A legfinomabb olasz tésztaételek. Budapest: HVG Könyvek.</li>
+                        <li>Kempe, Christina (2005): 1 tészta – 50 pizza (ford. Kiszlinger Henrietta). Kaposvár: Holló és Társa Kiadó.</li>
+                        <li>Kießling, Jessica – Maletzke, Sebastian (2024): Pizza – Amore Mio: Hogyan váljunk tökéletes pizzasütővé? (ford. Békési Rebeka). Pécs: Alexandra Kiadó.</li>
+                        <li>Lajos Mari – Hemző Károly (1998): 99 pizza és tészta 33 színes ételfotóval. Budapest: Corvina Kiadó.</li>
+                        <li>Locatelli, Giorgio (2010): Ízek Itáliája. Budapest: Gabo Kiadó.</li>
+                        <li>Preyer György (2026): Pizzaalkímia – A tökéletes kovászos és kelt tészta titkai. Budapest: BookLab Kiadó.</li>
+                        <li>Alexandra Kiadó (szerk., 2008): Pizza (Kreatív konyha sorozat, ford. Búza Virág). Pécs: Alexandra Kiadó.</li>
+                        <li>Elektra Kiadóház (szerk., 2006): Pizza, lepény, quiche és társaik (Haspók sorozat, ford. Csendes Veronika). Budapest: Elektra Kiadóház.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- AI Disclaimer Box -->
+            <div class="ai-disclaimer">
+                Figyelem! A teljes dokumentum MI felhasználásával készült!
+            </div>
+            <section class="document-gallery" style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 40px;">
+                <img src="1.jpg" alt="Borító - Színes pizza kép" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                <img src="2.jpg" alt="Borító - A PIZZA címlap" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                <img src="3.jpg" alt="1. oldal - Tartalomjegyzék" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                <img src="4.jpg" alt="2. oldal - 1. A pizza története és kialakulása" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                <img src="5.jpg" alt="3. oldal - 1.2. A pizza elterjedése és népszerűsége" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                <img src="6.jpg" alt="4. oldal - 2. A pizza összetevői és elkészítése" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; A PIZZA weboldal teljes egészében MI felhasználásával készült</p>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
